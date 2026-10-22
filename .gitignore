@@ -1,0 +1,7 @@
+/data/parquet/*
+/data/raw/*
+/data/interim/*
+/data/external/*
+/out/*
+/.vscode
+
