@@ -14,7 +14,6 @@
 - [ ] Memeriksa apakah nama kolom dan tipe data konsisten antarbulan.
 - [ ] Memeriksa kolom yang seluruh nilainya kosong atau hanya tersedia pada bulan tertentu.
 - [ ] Menentukan apakah dataset 2026 sesuai dengan tujuan penelitian.
-- [ ] Mendokumentasikan keputusan penggunaan dataset 2016 atau 2026 beserta alasannya.
 
 **Output yang diharapkan:**
 
@@ -244,12 +243,12 @@ Tahap awal dapat dianggap selesai apabila:
 ## 8. Catatan Keputusan yang Belum Final
 
 - [ ] Dataset final: 2016 / 2026.
-- [ ] Rentang bulan yang digunakan: ********\_\_\_\_********.
-- [ ] Tujuan utama penelitian: ********\_\_\_\_********.
+- [ ] Rentang bulan yang digunakan: **\*\*\*\***\_\_\_\_**\*\*\*\***.
+- [ ] Tujuan utama penelitian: **\*\*\*\***\_\_\_\_**\*\*\*\***.
 - [ ] Representasi lokasi: ID zona / centroid zona / koordinat GPS.
 - [ ] Unit analisis: perjalanan / zona / zona × jam / lainnya.
-- [ ] Model yang akan diuji: ********\_\_\_\_********.
-- [ ] Metrik evaluasi: ********\_\_\_\_********.
-- [ ] Alasan perubahan metodologi, jika ada: ********\_\_\_\_********.
+- [ ] Model yang akan diuji: **\*\*\*\***\_\_\_\_**\*\*\*\***.
+- [ ] Metrik evaluasi: **\*\*\*\***\_\_\_\_**\*\*\*\***.
+- [ ] Alasan perubahan metodologi, jika ada: **\*\*\*\***\_\_\_\_**\*\*\*\***.
 
 **Catatan:** jangan menganggap suatu aturan atau ambang cleaning sudah final sebelum memeriksa distribusi data dan menuliskan alasan pemilihannya.
