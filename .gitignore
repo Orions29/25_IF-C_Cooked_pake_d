@@ -1,8 +1,19 @@
-/data/parquet/*
-/data/raw/*
-/data/*.zip
-/data/interim/*
-/data/external/*
-/out/*
-/.vscode
+.vscode
+
+# Data
+data/parquet/*
+data/raw/*
+data/*.zip
+data/interim/*
+data/external/*
+
+# Docs
+docs/TODO.pdf
+
+# Output File
+out/output_eda/*
+out/*.zip
+
+*.zip
+
 
