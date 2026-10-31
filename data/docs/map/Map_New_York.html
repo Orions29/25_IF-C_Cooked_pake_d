@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="id">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Peta Asli New York City</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+		<style>
+			:root {
+				--card: rgba(255, 255, 255, 0.96);
+				--text: #1b2430;
+				--muted: #5d6b7c;
+				--line: #d9dee5;
+				--accent: #1f6feb;
+			}
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--card: rgba(24, 32, 42, 0.96);
+					--text: #e8edf3;
+					--muted: #98a6b6;
+					--line: #2b3644;
+					--accent: #5aa2ff;
+				}
+			}
+			html,
+			body {
+				height: 100%;
+				margin: 0;
+				font-family:
+					system-ui,
+					-apple-system,
+					"Segoe UI",
+					Roboto,
+					sans-serif;
+			}
+			#map {
+				height: 100vh;
+				height: 100dvh;
+			}
+			.legend {
+				background: var(--card);
+				color: var(--text);
+				border: 1px solid var(--line);
+				border-radius: 12px;
+				box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+				padding: 10px 12px;
+				min-width: 210px;
+				max-width: 240px;
+				font-size: 13px;
+			}
+			.legend summary {
+				font-weight: 700;
+				cursor: pointer;
+				font-size: 14px;
+			}
+			.legend label {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				padding: 5px 0;
+				cursor: pointer;
+			}
+			.legend input {
+				accent-color: var(--accent);
+			}
+			.legend .t {
+				margin: 10px 0 4px;
+				font-size: 11px;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--muted);
+			}
+			.chips {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 5px;
+			}
+			.chips button {
+				border: 1px solid var(--line);
+				background: transparent;
+				color: var(--text);
+				border-radius: 999px;
+				padding: 3px 9px;
+				font-size: 12px;
+				cursor: pointer;
+			}
+			.chips button:hover {
+				border-color: var(--accent);
+				color: var(--accent);
+			}
+			.dot {
+				width: 22px;
+				height: 22px;
+				border-radius: 50%;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 12px;
+				border: 2px solid #fff;
+				box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+				flex: none;
+			}
+			.pin {
+				width: 32px;
+				height: 32px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 16px;
+				border: 3px solid #fff;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+				transition: transform 0.15s;
+			}
+			.pin:hover {
+				transform: scale(1.18);
+			}
+			.bl {
+				background: none;
+				border: none;
+				font-weight: 800;
+				font-size: 12px;
+				letter-spacing: 0.14em;
+				color: #3b4252;
+				text-shadow:
+					0 0 3px #fff,
+					0 0 3px #fff,
+					0 0 5px #fff;
+				white-space: nowrap;
+				text-align: center;
+				cursor: pointer;
+			}
+			.leaflet-popup-content h3 {
+				margin: 0 0 4px;
+				font-size: 15px;
+			}
+			.leaflet-popup-content p {
+				margin: 3px 0;
+				font-size: 13px;
+			}
+			.k {
+				color: #666;
+				font-size: 11px;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="map"></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+		<script>
+			const map = L.map("map", { zoomSnap: 0.5 }).fitBounds([
+				[40.49, -74.27],
+				[40.93, -73.68],
+			]);
+			L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+				attribution:
+					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+				maxZoom: 19,
+			}).addTo(map);
+			L.control.scale({ imperial: false, position: "bottomright" }).addTo(map);
+
+			const cat = {
+				bo: { n: "Borough (wilayah)", e: "🏙️", c: "#e8762b" },
+				lm: { n: "Landmark", e: "⭐", c: "#e5484d" },
+				ap: { n: "Bandara", e: "✈️", c: "#2f6fdd" },
+				pk: { n: "Taman & kebun binatang", e: "🌳", c: "#2e9e57" },
+			};
+			const L_ = {};
+			for (const k in cat) L_[k] = L.layerGroup().addTo(map);
+
+			const boros = [
+				[
+					"Manhattan",
+					40.7831,
+					-73.9712,
+					"± 1,69 juta",
+					"59 km²",
+					"Pusat bisnis, budaya, dan hiburan kota: Wall Street, Times Square, Central Park.",
+				],
+				[
+					"Brooklyn",
+					40.6501,
+					-73.9496,
+					"± 2,74 juta",
+					"183 km²",
+					"Wilayah berpenduduk terbanyak; dikenal dengan Williamsburg, DUMBO, dan Coney Island.",
+				],
+				[
+					"Queens",
+					40.7282,
+					-73.7949,
+					"± 2,41 juta",
+					"282 km²",
+					"Wilayah terluas dan salah satu yang paling beragam budayanya di dunia; lokasi JFK dan LaGuardia.",
+				],
+				[
+					"The Bronx",
+					40.8448,
+					-73.8648,
+					"± 1,47 juta",
+					"109 km²",
+					"Satu-satunya borough di daratan utama; tempat lahir hip-hop dan rumah Yankee Stadium.",
+				],
+				[
+					"Staten Island",
+					40.5795,
+					-74.1502,
+					"± 0,49 juta",
+					"151 km²",
+					"Borough paling tenang dan suburban; terhubung ke Manhattan lewat feri gratis.",
+				],
+			];
+			boros.forEach(([n, la, lo, p, a, d]) => {
+				L.marker([la, lo], {
+					icon: L.divIcon({
+						className: "bl",
+						html: n.toUpperCase(),
+						iconSize: [130, 20],
+						iconAnchor: [65, 10],
+					}),
+				})
+					.bindPopup(
+						`<div class="k">Borough</div><h3>${n}</h3><p><b>Penduduk:</b> ${p}</p><p><b>Luas:</b> ${a}</p><p>${d}</p>`,
+					)
+					.addTo(L_.bo);
+			});
+
+			const pts = [
+				[
+					"lm",
+					"Patung Liberty",
+					40.6892,
+					-74.0445,
+					"Monumen ikonik di Liberty Island, hadiah dari Prancis (1886).",
+				],
+				[
+					"lm",
+					"Empire State Building",
+					40.7484,
+					-73.9857,
+					"Pencakar langit Art Deco setinggi 443 m (dengan antena), selesai 1931.",
+				],
+				[
+					"lm",
+					"Times Square",
+					40.758,
+					-73.9855,
+					"Persimpangan ramai dengan papan reklame dan teater Broadway.",
+				],
+				[
+					"lm",
+					"Brooklyn Bridge",
+					40.7061,
+					-73.9969,
+					"Jembatan gantung bersejarah (1883) penghubung Manhattan dan Brooklyn.",
+				],
+				[
+					"lm",
+					"One World Trade Center",
+					40.7127,
+					-74.0134,
+					"Gedung tertinggi di Amerika Serikat, di lokasi bekas World Trade Center.",
+				],
+				[
+					"lm",
+					"Yankee Stadium",
+					40.8296,
+					-73.9262,
+					"Kandang tim bisbol New York Yankees di The Bronx.",
+				],
+				[
+					"lm",
+					"Coney Island",
+					40.5755,
+					-73.978,
+					"Kawasan pantai dan taman hiburan legendaris di Brooklyn.",
+				],
+				[
+					"lm",
+					"Terminal Feri St. George",
+					40.6437,
+					-74.0737,
+					"Titik berangkat Staten Island Ferry menuju Manhattan.",
+				],
+				[
+					"ap",
+					"Bandara JFK",
+					40.6413,
+					-73.7781,
+					"Bandara internasional tersibuk di NYC, di Queens.",
+				],
+				[
+					"ap",
+					"Bandara LaGuardia",
+					40.7769,
+					-73.874,
+					"Bandara untuk penerbangan domestik, di Queens.",
+				],
+				[
+					"pk",
+					"Central Park",
+					40.7829,
+					-73.9654,
+					"Taman kota seluas sekitar 3,4 km² di tengah Manhattan.",
+				],
+				["pk", "Prospect Park", 40.6602, -73.969, "Taman besar di Brooklyn."],
+				[
+					"pk",
+					"Flushing Meadows–Corona Park",
+					40.7466,
+					-73.8448,
+					"Taman terbesar di Queens, lokasi turnamen tenis US Open.",
+				],
+				[
+					"pk",
+					"Bronx Zoo",
+					40.8506,
+					-73.877,
+					"Salah satu kebun binatang terbesar di AS.",
+				],
+			];
+			pts.forEach(([k, n, la, lo, d]) => {
+				const c = cat[k];
+				L.marker([la, lo], {
+					title: n,
+					icon: L.divIcon({
+						className: "",
+						html: `<div class="pin" style="background:${c.c}">${c.e}</div>`,
+						iconSize: [32, 32],
+						iconAnchor: [16, 16],
+						popupAnchor: [0, -16],
+					}),
+				})
+					.bindPopup(`<div class="k">${c.n}</div><h3>${n}</h3><p>${d}</p>`)
+					.addTo(L_[k]);
+			});
+
+			const lg = L.control({ position: "bottomleft" });
+			lg.onAdd = () => {
+				const d = L.DomUtil.create("details", "legend");
+				d.open = innerWidth > 600;
+				d.innerHTML =
+					'<summary>Legenda</summary><div class="t">Lapisan (centang untuk tampil)</div>' +
+					Object.entries(cat)
+						.map(
+							([k, c]) =>
+								`<label><input type="checkbox" data-k="${k}" checked><span class="dot" style="background:${c.c}">${c.e}</span>${c.n}</label>`,
+						)
+						.join("") +
+					'<div class="t">Lompat ke borough</div><div class="chips">' +
+					boros
+						.map((b, i) => `<button data-i="${i}">${b[0]}</button>`)
+						.join("") +
+					"</div>";
+				L.DomEvent.disableClickPropagation(d);
+				d.addEventListener("change", (e) => {
+					const k = e.target.dataset.k;
+					if (k) map[e.target.checked ? "addLayer" : "removeLayer"](L_[k]);
+				});
+				d.addEventListener("click", (e) => {
+					const i = e.target.dataset.i;
+					if (i !== undefined)
+						map.flyTo([boros[i][1], boros[i][2]], 12, { duration: 1 });
+				});
+				return d;
+			};
+			lg.addTo(map);
+		</script>
+	</body>
+</html>

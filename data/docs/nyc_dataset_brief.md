@@ -53,6 +53,36 @@ _New York City (NYC) Taxi & Limousine Commission_ (TLC) menyimpan data dari selu
 1. **PULocationID & DOLocationID**: Dataset versi ini tidak lagi menyediakan titik GPS (`latitude`/`longitude`). Untuk mengetahui nama wilayah/borough (misal: _Manhattan_, _JFK Airport_), kamu perlu menghubungkan ID ini dengan file **Taxi Zone Lookup Table** resmi dari TLC.
 2. **Biaya Tambahan Baru**: Terdapat kolom biaya baru seperti `congestion_surcharge`, `Airport_fee`, dan `cbd_congestion_fee` yang disesuaikan dengan regulasi lalu lintas terkini di NYC (termasuk aturan 2025).
 
+---
+
+## Contoh Fare Perjalanan Reguler
+
+Untuk perjalanan **reguler / standar** (`RatecodeID = 1`) di siang hari normal, komponen biaya yang ditagihkan dalam `total_amount` meliputi beberapa item wajib berikut:
+
+### 1. Component Wajib (Pasti Kena di Setiap Transaksi Reguler)
+
+- **`fare_amount`**: Tarif dasar (_base fare_) yang dihitung oleh argometer berdasarkan kombinasi jarak tempuh (`trip_distance`) dan waktu perjalanan.
+
+- **`mta_tax`**: Pajak wajib MTA sebesar **$0.50**.
+
+- **`improvement_surcharge`**: Biaya pembenahan fasilitas/aksesibilitas sebesar **$0.30** yang otomatis terpotong saat argometer dinyalakan.
+
+### 2. Biaya Kondisional (Kena Jika Memenuhi Syarat Waktu/Rute/Sistem)
+
+- **`extra`**: Kena **$0.50** jika perjalanan dilakukan pada jam sibuk sore hari (16.00–20.00) ATAU kena **$1.00** jika perjalanan malam hari (20.00–06.00).
+
+- **`congestion_surcharge` / `cbd_congestion_fee**`: Kena biaya tambahan kemacetan jika rute perjalanan melintasi atau beroperasi di kawasan zona kemacetan/bisnis terpusat (CBD Manhattan).
+
+- **`tolls_amount`**: Kena jika rute melewati jalan tol, jembatan, atau terowongan berbayar.
+
+- **`tip_amount`**: Kena jika penumpang membayar menggunakan kartu kredit (`payment_type = 1`) dan memberikan tip secara sukarela melalui mesin TPEP.
+
+### Perhitungan Matematis Sederhana
+
+$$\text{total\_amount} = \text{fare\_amount} + \text{mta\_tax (0.50)} + \text{improvement\_surcharge (0.30)} + \text{extra} + \text{surcharge/tolls} + \text{tip\_amount}$$
+
+---
+
 ## Pengakuan (_Acknowledgements_)
 
 - _New York City's Taxi & Limousine Commission_ (TLC)
