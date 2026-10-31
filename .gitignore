@@ -1,11 +1,11 @@
+# Misc
 .vscode
 
 # Data
-data/parquet/*
-data/raw/*
-data/*.zip
-data/interim/*
-data/external/*
+datasets/raw/*
+datasets/*.zip
+datasets/interim/*
+datasets/external/*
 
 # Docs
 docs/TODO.pdf
@@ -13,6 +13,9 @@ docs/TODO.pdf
 # Output File
 out/output_eda/*
 out/*.zip
+
+# archive
+archive/*
 
 *.zip
 

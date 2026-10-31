@@ -4,8 +4,8 @@
 
 _New York City (NYC) Taxi & Limousine Commission_ (TLC) menyimpan data dari seluruh armada taksinya. Data ini tersedia secara gratis untuk diunduh melalui situs web resminya. Secara umum, TLC mengelola data untuk 4 jenis kendaraan utama:
 
-- **Taksi Kuning (_Yellow Taxi_)**: _Yellow Medallion Taxicabs_ — Taksi kuning ikonik NYC yang menyediakan layanan transportasi khusus melalui cegatan langsung di jalan (_street hails_). Jumlah armada dibatasi oleh jumlah izin (_medallion_) resmi yang dikeluarkan oleh TLC.
-- **Taksi Hijau (_Green Taxi_)**: _Street Hail Livery (SHL)_ — Program SHL mengizinkan pemilik kendaraan _livery_ untuk mendaftarkan dan melengkapi kendaraan mereka dengan identitas taksi hijau, argometer, mesin kartu kredit, serta hak untuk menerima cegatan di jalan selain pesanan berbasis pra-pemesanan (_pre-arranged rides_).
+- **Taksi Kuning (_Yellow Taxi_)**: _Yellow Medallion Taxicabs_ - Taksi kuning ikonik NYC yang menyediakan layanan transportasi khusus melalui cegatan langsung di jalan (_street hails_). Jumlah armada dibatasi oleh jumlah izin (_medallion_) resmi yang dikeluarkan oleh TLC.
+- **Taksi Hijau (_Green Taxi_)**: _Street Hail Livery (SHL)_ - Program SHL mengizinkan pemilik kendaraan _livery_ untuk mendaftarkan dan melengkapi kendaraan mereka dengan identitas taksi hijau, argometer, mesin kartu kredit, serta hak untuk menerima cegatan di jalan selain pesanan berbasis pra-pemesanan (_pre-arranged rides_).
 - **Kendaraan Sewa (_For-Hire Vehicles / FHVs_)**: Layanan transportasi yang diakses melalui pemesanan terlebih dahulu (_pre-arrangement_) lewat _dispatcher_ atau perusahaan limosin. FHV tidak diizinkan mengambil penumpang dari cegatan langsung di jalan.
 
 ## Kernel Pelengkap
