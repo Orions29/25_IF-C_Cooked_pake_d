@@ -9,9 +9,9 @@ Proyek ini menggunakan data **NYC Yellow Taxi** untuk mengeksplorasi pola permin
 
 Fokus analisis:
 
-- **Temporal:** pola pickup berdasarkan jam, hari, dan bulan.
-- **Spatial:** persebaran pickup berdasarkan Taxi Zone.
-- **Forecasting:** pemodelan dan evaluasi prediksi permintaan.
+- **Temporal :** pola pickup berdasarkan jam, hari, dan bulan.
+- **Spatial :** persebaran pickup berdasarkan Taxi Zone.
+- **Forecasting :** pemodelan dan evaluasi prediksi permintaan.
 
 ## Struktur Folder
 
@@ -43,15 +43,13 @@ projectAkhir_DS/
 
 ## Persiapan Dataset
 
-Unduh dataset melalui [Google Drive – Dataset Proyek](https://drive.google.com/drive/folders/1WIKaykwoGqCRWO_QsLUs9Zu), kemudian:
+Unduh dataset melalui [Google Drive - Dataset Proyek](https://drive.google.com/drive/folders/1WIKaykwoGqCRWO_QsLUs9Zu), kemudian:
 
 1. Ekstrak file ZIP yang diperlukan.
-2. Letakkan data Yellow Taxi 2016 di `datasets/raw/2016/`.
-3. Letakkan data Yellow Taxi 2026 di `datasets/raw/2026/`.
-4. Letakkan shapefile dan lookup Taxi Zone di `datasets/zone/`.
-5. Pastikan file sudah berada di folder yang sesuai sebelum menjalankan notebook.
+2. Letakkan data Yellow Taxi 2026 di `datasets/raw/`.
+3. Pastikan file sudah berada di folder yang sesuai sebelum menjalankan notebook.
 
-> Data mentah sebaiknya tidak diedit atau ditimpa. Simpan seluruh hasil pemrosesan sebagai file baru.
+> Data mentah sebaiknya tidak diedit atau ditimpa!! Simpan seluruh hasil pemrosesan sebagai file baru.
 
 ## Setup Environment
 
@@ -71,14 +69,22 @@ python -m pip install pandas numpy matplotlib seaborn pyarrow jupyter
 
 Sesuaikan library tambahan dengan notebook yang digunakan, lalu pilih `.venv` sebagai Python interpreter/kernel di VS Code.
 
+Library Yang Digunakan:
+
+1. Python 3.14.7
+2. pandas 3.0.6
+3. numpy 2.5.3
+4. scipy 1.18.1
+5. seaborn 0.13.2
+
 ## Menjalankan Proyek
 
 Jalankan notebook di dalam folder `script/` mengikuti nomor dan urutan analisis yang tersedia. Alur umumnya:
 
-1. **Data preparation** – pemeriksaan data, cleaning, dan preprocessing.
-2. **EDA** – eksplorasi pola temporal dan spasial.
-3. **Feature engineering** – agregasi demand dan pembuatan fitur model.
-4. **Modeling** – training, prediksi, dan evaluasi.
+1. **Data preparation** - pemeriksaan data, cleaning, dan preprocessing.
+2. **EDA** - eksplorasi pola temporal dan spasial.
+3. **Feature engineering** - agregasi demand dan pembuatan fitur model.
+4. **Modeling** - training, prediksi, dan evaluasi.
 
 Simpan hasil visualisasi, tabel, dan peta pada folder `out/` agar terpisah dari notebook dan data sumber.
 
@@ -93,6 +99,6 @@ Simpan hasil visualisasi, tabel, dan peta pada folder `out/` agar terpisah dari 
 
 ## Referensi
 
-- [NYC TLC – Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
-- [NYC TLC – Data Dictionary](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf)
-- [NYC TLC – Trip Record User Guide](https://www.nyc.gov/assets/tlc/downloads/pdf/trip_record_user_guide.pdf)
+- [NYC TLC - Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
+- [NYC TLC - Data Dictionary](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf)
+- [NYC TLC - Trip Record User Guide](https://www.nyc.gov/assets/tlc/downloads/pdf/trip_record_user_guide.pdf)
