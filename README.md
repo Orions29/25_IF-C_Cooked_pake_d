@@ -43,7 +43,7 @@ projectAkhir_DS/
 
 ## Persiapan Dataset
 
-Unduh dataset melalui [Google Drive - Dataset Proyek](dummy.com), kemudian:
+Unduh dataset melalui [Google Drive - Dataset Proyek](https://drive.google.com/drive/folders/1icM9a2faBhOn-KZ-frdPWTNHdGcPMHO3?usp=sharing), kemudian:
 
 1. Ekstrak file ZIP yang diperlukan.
 2. Peletakan Hasil Extract:
