@@ -1,22 +1,29 @@
 # Misc
-.vscode
+.vscode/
 
 # Data
 datasets/raw/*
+!datasets/raw/.gitkeep
+
 datasets/*.zip
+
 datasets/interim/*
+!datasets/interim/.gitkeep
+
 datasets/external/*
+!datasets/external/.gitkeep
 
 # Docs
 docs/TODO.pdf
 
 # Output File
 out/output_eda/*
+!out/output_eda/.gitkeep
+
 out/*.zip
 
 # archive
 archive/*
+!archive/.gitkeep
 
 *.zip
-
-
