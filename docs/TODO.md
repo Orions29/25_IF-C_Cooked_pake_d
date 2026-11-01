@@ -13,7 +13,7 @@ Pembagian tugas untuk **4 anggota**, disusun dari `Brief_Project_NYC_Taxi_2026.m
 | **1 - Rio Meidi A** | Data Engineer & Feature Engineer | 0, 1, 2 (termasuk tabel zona), 5, 6A | –        |
 | **2 - [Nama]**      | EDA, Agregasi & Regresi          | 3, 4A, 6B                            | RQ1, RQ4 |
 | **3 - [Nama]**      | Analisis Spasial & Time Series   | 4B, 6D                               | RQ2      |
-| **4 - [Nama]**      | Infrastruktur, SVM & Optimasi    | Persiapan env & kalender, 6C, 7      | RQ3, RQ4 |
+| **4 - Erlan Rifqi Davin D**      | Infrastruktur, SVM & Optimasi    | Persiapan env & kalender, 6C, 7      | RQ3, RQ4 |
 
 **Beban kerja per gelombang**
 
