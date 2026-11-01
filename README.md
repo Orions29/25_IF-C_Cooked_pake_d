@@ -43,10 +43,12 @@ projectAkhir_DS/
 
 ## Persiapan Dataset
 
-Unduh dataset melalui [Google Drive - Dataset Proyek](https://drive.google.com/drive/folders/1WIKaykwoGqCRWO_QsLUs9Zu), kemudian:
+Unduh dataset melalui [Google Drive - Dataset Proyek](dummy.com), kemudian:
 
 1. Ekstrak file ZIP yang diperlukan.
-2. Letakkan data Yellow Taxi 2026 di `datasets/raw/`.
+2. Peletakan Hasil Extract:
+   2.a) Letakkan data Yellow Taxi 2026 di `datasets/raw`.
+   2.b) Jika Memakai `datasets.zip` maka tinggal paste di root menggantikan folder `datasets`.
 3. Pastikan file sudah berada di folder yang sesuai sebelum menjalankan notebook.
 
 > Data mentah sebaiknya tidak diedit atau ditimpa!! Simpan seluruh hasil pemrosesan sebagai file baru.

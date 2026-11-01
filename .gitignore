@@ -19,6 +19,10 @@ docs/TODO.pdf
 # Output File
 out/output_eda/*
 !out/output_eda/.gitkeep
+out/figures/*
+!out/figures/.gitkeep
+out/html/*
+!out/html/.gitkeep
 
 out/*.zip
 
