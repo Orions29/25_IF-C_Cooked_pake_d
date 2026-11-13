@@ -1,0 +1,182 @@
+date,event_names,categories,is_holiday,is_event,is_major_nyc_event,is_cultural_observance,is_religious_observance,is_general_observance,is_event_observance,event_categories
+2026-01-01,New Year's Day,Federal Holiday,1,0,0,0,0,0,0,
+2026-01-02,,,0,0,0,0,0,0,0,
+2026-01-03,,,0,0,0,0,0,0,0,
+2026-01-04,,,0,0,0,0,0,0,0,
+2026-01-05,,,0,0,0,0,0,0,0,
+2026-01-06,,,0,0,0,0,0,0,0,
+2026-01-07,,,0,0,0,0,0,0,0,
+2026-01-08,,,0,0,0,0,0,0,0,
+2026-01-09,,,0,0,0,0,0,0,0,
+2026-01-10,,,0,0,0,0,0,0,0,
+2026-01-11,,,0,0,0,0,0,0,0,
+2026-01-12,,,0,0,0,0,0,0,0,
+2026-01-13,,,0,0,0,0,0,0,0,
+2026-01-14,,,0,0,0,0,0,0,0,
+2026-01-15,,,0,0,0,0,0,0,0,
+2026-01-16,,,0,0,0,0,0,0,0,
+2026-01-17,,,0,0,0,0,0,0,0,
+2026-01-18,,,0,0,0,0,0,0,0,
+2026-01-19,Martin Luther King Jr. Day,Federal Holiday,1,0,0,0,0,0,0,
+2026-01-20,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-21,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-22,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-23,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-24,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-25,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-26,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-27,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-28,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-29,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-30,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-01-31,NYC Restaurant Week (Winter),Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-02-01,NYC Restaurant Week (Winter); Black History Month,Major NYC Event; Cultural Observance,0,1,1,1,0,0,0,Major NYC Event; Cultural Observance
+2026-02-02,NYC Restaurant Week (Winter); Black History Month,Major NYC Event; Cultural Observance,0,1,1,1,0,0,0,Major NYC Event; Cultural Observance
+2026-02-03,NYC Restaurant Week (Winter); Black History Month,Major NYC Event; Cultural Observance,0,1,1,1,0,0,0,Major NYC Event; Cultural Observance
+2026-02-04,NYC Restaurant Week (Winter); Black History Month,Major NYC Event; Cultural Observance,0,1,1,1,0,0,0,Major NYC Event; Cultural Observance
+2026-02-05,NYC Restaurant Week (Winter); Black History Month,Major NYC Event; Cultural Observance,0,1,1,1,0,0,0,Major NYC Event; Cultural Observance
+2026-02-06,NYC Restaurant Week (Winter); Black History Month,Major NYC Event; Cultural Observance,0,1,1,1,0,0,0,Major NYC Event; Cultural Observance
+2026-02-07,NYC Restaurant Week (Winter); Black History Month,Major NYC Event; Cultural Observance,0,1,1,1,0,0,0,Major NYC Event; Cultural Observance
+2026-02-08,NYC Restaurant Week (Winter); Black History Month,Major NYC Event; Cultural Observance,0,1,1,1,0,0,0,Major NYC Event; Cultural Observance
+2026-02-09,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-10,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-11,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-12,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-13,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-14,Black History Month; Valentine's Day,Cultural Observance; Event / Observance,0,1,0,1,0,0,1,Cultural Observance; Event / Observance
+2026-02-15,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-16,Black History Month; Presidents' Day,Cultural Observance; Federal Holiday,1,1,0,1,0,0,0,Cultural Observance
+2026-02-17,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-18,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-19,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-20,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-21,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-22,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-23,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-24,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-25,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-26,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-27,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-02-28,Black History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-01,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-02,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-03,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-04,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-05,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-06,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-07,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-08,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-09,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-10,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-11,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-12,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-13,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-14,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-15,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-16,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-17,Women's History Month; St. Patrick's Day,Cultural Observance; Major NYC Event,0,1,1,1,0,0,0,Cultural Observance; Major NYC Event
+2026-03-18,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-19,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-20,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-21,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-22,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-23,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-24,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-25,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-26,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-27,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-28,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-29,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-30,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-03-31,Women's History Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-04-01,,,0,0,0,0,0,0,0,
+2026-04-02,,,0,0,0,0,0,0,0,
+2026-04-03,,,0,0,0,0,0,0,0,
+2026-04-04,,,0,0,0,0,0,0,0,
+2026-04-05,Easter Sunday,Religious Observance,0,1,0,0,1,0,0,Religious Observance
+2026-04-06,,,0,0,0,0,0,0,0,
+2026-04-07,,,0,0,0,0,0,0,0,
+2026-04-08,,,0,0,0,0,0,0,0,
+2026-04-09,,,0,0,0,0,0,0,0,
+2026-04-10,,,0,0,0,0,0,0,0,
+2026-04-11,,,0,0,0,0,0,0,0,
+2026-04-12,,,0,0,0,0,0,0,0,
+2026-04-13,,,0,0,0,0,0,0,0,
+2026-04-14,,,0,0,0,0,0,0,0,
+2026-04-15,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-16,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-17,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-18,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-19,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-20,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-21,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-22,Earth Day; Tribeca Film Festival,Observance; Major NYC Event,0,1,1,0,0,1,0,Observance; Major NYC Event
+2026-04-23,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-24,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-25,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-26,Tribeca Film Festival,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-04-27,,,0,0,0,0,0,0,0,
+2026-04-28,,,0,0,0,0,0,0,0,
+2026-04-29,,,0,0,0,0,0,0,0,
+2026-04-30,,,0,0,0,0,0,0,0,
+2026-05-01,,,0,0,0,0,0,0,0,
+2026-05-02,,,0,0,0,0,0,0,0,
+2026-05-03,,,0,0,0,0,0,0,0,
+2026-05-04,,,0,0,0,0,0,0,0,
+2026-05-05,Cinco de Mayo,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-05-06,,,0,0,0,0,0,0,0,
+2026-05-07,,,0,0,0,0,0,0,0,
+2026-05-08,,,0,0,0,0,0,0,0,
+2026-05-09,,,0,0,0,0,0,0,0,
+2026-05-10,Mother's Day,Event / Observance,0,1,0,0,0,0,1,Event / Observance
+2026-05-11,,,0,0,0,0,0,0,0,
+2026-05-12,,,0,0,0,0,0,0,0,
+2026-05-13,,,0,0,0,0,0,0,0,
+2026-05-14,,,0,0,0,0,0,0,0,
+2026-05-15,,,0,0,0,0,0,0,0,
+2026-05-16,,,0,0,0,0,0,0,0,
+2026-05-17,,,0,0,0,0,0,0,0,
+2026-05-18,,,0,0,0,0,0,0,0,
+2026-05-19,,,0,0,0,0,0,0,0,
+2026-05-20,Fleet Week NYC,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-05-21,Fleet Week NYC,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-05-22,Fleet Week NYC,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-05-23,Fleet Week NYC,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-05-24,Fleet Week NYC,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-05-25,Fleet Week NYC; Memorial Day,Major NYC Event; Federal Holiday,1,1,1,0,0,0,0,Major NYC Event
+2026-05-26,Fleet Week NYC,Major NYC Event,0,1,1,0,0,0,0,Major NYC Event
+2026-05-27,,,0,0,0,0,0,0,0,
+2026-05-28,,,0,0,0,0,0,0,0,
+2026-05-29,,,0,0,0,0,0,0,0,
+2026-05-30,,,0,0,0,0,0,0,0,
+2026-05-31,,,0,0,0,0,0,0,0,
+2026-06-01,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-02,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-03,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-04,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-05,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-06,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-07,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-08,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-09,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-10,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-11,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-12,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-13,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-14,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-15,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-16,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-17,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-18,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-19,LGBTQ+ Pride Month; Juneteenth,Cultural Observance; Federal Holiday,1,1,0,1,0,0,0,Cultural Observance
+2026-06-20,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-21,LGBTQ+ Pride Month; Father's Day,Cultural Observance; Event / Observance,0,1,0,1,0,0,1,Cultural Observance; Event / Observance
+2026-06-22,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-23,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-24,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-25,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-26,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-27,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-28,LGBTQ+ Pride Month; NYC Pride March,Cultural Observance; Major NYC Event,0,1,1,1,0,0,0,Cultural Observance; Major NYC Event
+2026-06-29,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
+2026-06-30,LGBTQ+ Pride Month,Cultural Observance,0,1,0,1,0,0,0,Cultural Observance
