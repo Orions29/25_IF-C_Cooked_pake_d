@@ -216,12 +216,12 @@ Diisi otomatis dari notebook `1_data_cleaning.ipynb`. Berkas: `out/output_eda/03
 
 | Kelompok           | Fitur                                                      | Tersedia saat waktu prediksi? | Status |
 | :----------------- | :--------------------------------------------------------- | :---------------------------: | :----: |
-| Waktu              | `hour`, `day_of_week`, `month`, `is_weekend`, `is_holiday` |              Ya               | Draft  |
+| Waktu              | `hour`, `day_of_week`, `month`, `is_weekend`, `is_holiday`, `is_major_nyc_event` |              Ya               | Final  |
 | Historis           | `lag_1`, `lag_24`, `lag_168` (per zona)                    |              Ya               | Draft  |
 | Ringkasan historis | Rolling mean 24 jam & 168 jam (sudah di-_shift_)           |              Ya               | Draft  |
 | Lokasi             | `PU_longitude`, `PU_latitude`                              |              Ya               | Draft  |
 | Atribut zona       | `borough`, `is_airport`, `is_cbd`                          |              Ya               | Draft  |
-| Fitur tambahan     | \_\_\_\_                                                   |           \_\_\_\_            | Draft  |
+| Fitur tambahan     | `is_major_nyc_event` (event besar NYC)                    |              Ya               | Final  |
 
 ### 7.2 Fitur yang Dilarang (_leakage_)
 
@@ -266,8 +266,8 @@ Lihat `docs/feature_dictionary.md`.
 | Testing    | Juni 2026            | Evaluasi akhir, **dipakai sekali** | Final  |
 
 - Split kronologis; tidak ada _random split_ atau k-fold acak.
-- Pengecekan hari libur di tiap bagian: Train (\_\_\_\_), Validation (Memorial Day, Mother's Day), Test (Juneteenth, Father's Day).
-- Kalender libur & event: `datasets/external/` (sumber: \_\_\_\_).
+- Pengecekan hari libur di tiap bagian: Train (New Year, MLK, Presidents' Day), Validation (Memorial Day, Mother's Day, Fleet Week), Test (Juneteenth, Father's Day, Pride March).
+- Kalender libur & event: `datasets/processed/nyc_holiday_event_calendar_2026.csv` (sumber: `FederalHolidays_Event.md`, diolah Anggota 4).
 
 ---
 

@@ -23,7 +23,8 @@ Dataset hasil `script/05_features.ipynb`. Sumber: `datasets/interim/2026/main_tr
 | `day_of_week` | int | Hari 0–6 (0 = Senin) | fitur waktu | Ya |
 | `month` | int | Bulan 1–12 | fitur waktu | Ya |
 | `is_weekend` | 0/1 | 1 kalau Sabtu/Minggu | fitur waktu | Ya |
-| `is_holiday` | 0/1 | 1 kalau tanggal libur/event (brief 3.7) | fitur waktu | Ya |
+| `is_holiday` | 0/1 | 1 kalau libur federal AS | fitur waktu | Ya |
+| `is_major_nyc_event` | 0/1 | 1 kalau event besar NYC (Restaurant Week, St Patrick, Tribeca, Fleet Week, Pride March) | fitur waktu | Ya |
 | `lag_1` | float | Pickup pada T-1 | fitur historis | Ya |
 | `lag_24` | float | Pickup pada T-24 jam | fitur historis | Ya |
 | `lag_168` | float | Pickup pada T-168 jam (minggu lalu) | fitur historis | Ya |
@@ -81,5 +82,5 @@ Awal train 8 Januari karena `lag_168` butuh 168 jam riwayat per zona.
 ## 6. Catatan
 
 - Jam DST 2026-03-08 02:00 ditandai **tidak tersedia** (`is_dst_missing=1`, `pickup_count=NaN`), bukan nol, dan barisnya tidak dipakai di modeling.
-- `is_holiday` dibangun dari tabel brief 3.7. Kalau Anggota 4 menyediakan file kalender di `datasets/external/`, kolom ini bisa diganti.
+- `is_holiday` dan `is_major_nyc_event` diambil dari `datasets/processed/nyc_holiday_event_calendar_2026.csv` (kalender resmi Anggota 4).
 - `PU_borough` masih berupa teks; perlu di-encode (one-hot / ordinal) di tahap modeling.
