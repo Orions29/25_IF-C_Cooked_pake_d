@@ -69,10 +69,10 @@ Pembagian tugas untuk **4 anggota**, disusun dari `Brief_Project_NYC_Taxi_2026.m
 
 ### 4.1 Fase 0 - Persiapan & Analysis Plan
 
-- [ ] Menetapkan RQ1–RQ4 dan target penelitian (jumlah pickup 1 jam ke depan).
+- [x] Menetapkan RQ1–RQ4 dan target penelitian (jumlah pickup 1 jam ke depan).
 - [x] Menetapkan periode **Januari – Juni 2026**.
-- [ ] Menuliskan aturan cleaning dan aturan penggantian ID → koordinat **sebelum** diterapkan.
-- [ ] Menetapkan metode hotspot (Moran's I + Getis-Ord Gi\*) dan skema split data bersama Anggota 3.
+- [x] Menuliskan aturan cleaning dan aturan penggantian ID → koordinat **sebelum** diterapkan.
+- [x] Menetapkan metode hotspot (Moran's I + Getis-Ord Gi\*) dan skema split data bersama Anggota 3.
 - [x] Mencatat seed, periode, dan semua keputusan di `docs/analysis_plan.md`.
 
 **Output:** `docs/analysis_plan.md`
@@ -82,28 +82,28 @@ Pembagian tugas untuk **4 anggota**, disusun dari `Brief_Project_NYC_Taxi_2026.m
 
 - [x] Memastikan keenam bulan (Jan–Jun 2026) tersedia dan lengkap.
 - [x] Mencatat ukuran file, jumlah baris, dan jumlah kolom tiap file.
-- [ ] Membandingkan nama kolom dan tipe data antarbulan; mencatat kolom yang kosong seluruhnya atau hanya ada di bulan tertentu.
-- [ ] Memeriksa apakah kolom `request_source` ada, lalu menyesuaikan data dictionary dengan skema asli.
-- [ ] Memeriksa rentang `tpep_pickup_datetime` dan `tpep_dropoff_datetime`, termasuk timestamp di luar Jan–Jun 2026.
-- [ ] Menghitung jumlah dan persentase _missing values_ per kolom.
-- [ ] Menghitung duplikat seluruh baris dan memeriksa apakah itu catatan berulang atau perjalanan berbeda.
-- [ ] Memeriksa nilai tidak wajar: `trip_distance`, `fare_amount`, `total_amount`, `passenger_count`, durasi negatif/ekstrem.
-- [ ] Memeriksa kode `VendorID`, `RatecodeID`, `payment_type` dan ID lokasi di luar daftar zona.
-- [ ] Menyimpulkan apakah dataset 2026 sesuai tujuan penelitian.
+- [x] Membandingkan nama kolom dan tipe data antarbulan; mencatat kolom yang kosong seluruhnya atau hanya ada di bulan tertentu.
+- [x] Memeriksa apakah kolom `request_source` ada, lalu menyesuaikan data dictionary dengan skema asli.
+- [x] Memeriksa rentang `tpep_pickup_datetime` dan `tpep_dropoff_datetime`, termasuk timestamp di luar Jan–Jun 2026.
+- [x] Menghitung jumlah dan persentase _missing values_ per kolom.
+- [x] Menghitung duplikat seluruh baris dan memeriksa apakah itu catatan berulang atau perjalanan berbeda.
+- [x] Memeriksa nilai tidak wajar: `trip_distance`, `fare_amount`, `total_amount`, `passenger_count`, durasi negatif/ekstrem.
+- [x] Memeriksa kode `VendorID`, `RatecodeID`, `payment_type` dan ID lokasi di luar daftar zona.
+- [x] Menyimpulkan apakah dataset 2026 sesuai tujuan penelitian.
 
 **Output** (di `out/output_eda/`): `00_file_inventory.csv`, `01_schema_comparison.csv`, `02_data_quality.csv`; notebook `script/01_audit.ipynb`
 **Gate:** skema keenam file dipahami dan perbedaan kolom antarbulan sudah dicatat.
 
 ### 4.3 Fase 2A - Cleaning
 
-- [ ] Menetapkan kolom wajib untuk analisis demand (waktu dan lokasi pickup valid).
-- [ ] **Memisahkan aturan demand dan aturan revenue**: baris dengan tarif/jarak bermasalah tidak otomatis dibuang dari analisis demand.
-- [ ] Menandai nilai ekstrem dan memeriksa distribusinya sebelum memutuskan dibuang; mendokumentasikan batas dan alasan tiap aturan.
-- [ ] Menentukan aturan duplikat dan jumlah baris yang dihapus.
-- [ ] Memeriksa durasi negatif/tidak masuk akal dan timestamp di luar rentang; membedakan kesalahan pencatatan dari kejadian nyata.
-- [ ] Menentukan nasib zona _Unknown_ (umumnya ID 264 dan 265): dibuang atau dilabeli khusus.
-- [ ] Menerapkan aturan satu per satu dan mencatat baris sebelum/dibuang/sesudah serta persentasenya.
-- [ ] Memeriksa apakah penghapusan terkonsentrasi pada tanggal atau periode tertentu.
+- [x] Menetapkan kolom wajib untuk analisis demand (waktu dan lokasi pickup valid).
+- [x] **Memisahkan aturan demand dan aturan revenue**: baris dengan tarif/jarak bermasalah tidak otomatis dibuang dari analisis demand.
+- [x] Menandai nilai ekstrem dan memeriksa distribusinya sebelum memutuskan dibuang; mendokumentasikan batas dan alasan tiap aturan.
+- [x] Menentukan aturan duplikat dan jumlah baris yang dihapus.
+- [x] Memeriksa durasi negatif/tidak masuk akal dan timestamp di luar rentang; membedakan kesalahan pencatatan dari kejadian nyata.
+- [x] Menentukan nasib zona _Unknown_ (umumnya ID 264 dan 265): dibuang atau dilabeli khusus.
+- [x] Menerapkan aturan satu per satu dan mencatat baris sebelum/dibuang/sesudah serta persentasenya.
+- [x] Memeriksa apakah penghapusan terkonsentrasi pada tanggal atau periode tertentu.
 
 **Template log (`03_cleaning_log.csv`):**
 
@@ -121,22 +121,22 @@ Pembagian tugas untuk **4 anggota**, disusun dari `Brief_Project_NYC_Taxi_2026.m
 
 **Tabel zona (dikerjakan sendiri, bisa paralel dengan audit)**
 
-- [ ] Mengunduh Taxi Zone Lookup dan Shapefile TLC ke `datasets/zone/`.
-- [ ] Menghitung centroid tiap zona **sekali** dalam WGS84 (EPSG:4326) menjadi satu tabel; jangan dihitung ulang per file.
-- [ ] Membuat `zone_centroid_lookup.csv` berisi `LocationID`, `longitude`, `latitude`, `zone_name`, `borough`, `is_airport`, `is_cbd`.
-- [ ] Memastikan satu zona = satu record dan pasangan koordinat **unik** per zona.
-- [ ] Mencatat zona tanpa geometri (umumnya ID 264 dan 265) dan koordinat di luar wilayah NYC.
-- [ ] Menjelaskan di dokumentasi bahwa koordinat adalah **centroid zona**, bukan GPS asli.
+- [x] Mengunduh Taxi Zone Lookup dan Shapefile TLC ke `datasets/zone/`.
+- [x] Menghitung centroid tiap zona **sekali** dalam WGS84 (EPSG:4326) menjadi satu tabel; jangan dihitung ulang per file.
+- [x] Membuat `zone_centroid_lookup.csv` berisi `LocationID`, `longitude`, `latitude`, `zone_name`, `borough`, `is_airport`, `is_cbd`.
+- [x] Memastikan satu zona = satu record dan pasangan koordinat **unik** per zona.
+- [x] Mencatat zona tanpa geometri (umumnya ID 264 dan 265) dan koordinat di luar wilayah NYC.
+- [x] Menjelaskan di dokumentasi bahwa koordinat adalah **centroid zona**, bukan GPS asli.
 
 **Join ke data perjalanan**
 
-- [ ] Menurunkan atribut zona (`borough`, `is_airport`, `is_cbd`) **sebelum** ID dilepas.
-- [ ] _Left join_ ke `PULocationID` → `PU_longitude`/`PU_latitude` dan `DOLocationID` → `DO_longitude`/`DO_latitude`.
-- [ ] Memastikan jumlah baris **tidak bertambah** setelah join.
-- [ ] Menangani koordinat kosong dan mencatat kegagalan join di tabel _attrition_.
-- [ ] Memastikan koordinat berada di wilayah NYC dan unik per zona.
-- [ ] Melepas `PULocationID` dan `DOLocationID` dari `main_trips` (hanya di `interim/`).
-- [ ] Menyimpan `main_trips`; opsional `revenue_analysis` bila dibutuhkan.
+- [x] Menurunkan atribut zona (`borough`, `is_airport`, `is_cbd`) **sebelum** ID dilepas.
+- [x] _Left join_ ke `PULocationID` → `PU_longitude`/`PU_latitude` dan `DOLocationID` → `DO_longitude`/`DO_latitude`.
+- [x] Memastikan jumlah baris **tidak bertambah** setelah join.
+- [x] Menangani koordinat kosong dan mencatat kegagalan join di tabel _attrition_.
+- [x] Memastikan koordinat berada di wilayah NYC dan unik per zona.
+- [x] Melepas `PULocationID` dan `DOLocationID` dari `main_trips` (hanya di `interim/`).
+- [x] Menyimpan `main_trips`; opsional `revenue_analysis` bila dibutuhkan.
 
 **Output:** `main_trips`, tabel _attrition_ (`datasets/interim/2026/`, `out/output_eda/`); notebook `script/02_cleaning_join_coordinates.ipynb`
 **Gate:** jumlah baris setelah join konsisten, koordinat unik per zona, kegagalan join tercatat, tabel pemetaan tersimpan.
@@ -145,27 +145,27 @@ Pembagian tugas untuk **4 anggota**, disusun dari `Brief_Project_NYC_Taxi_2026.m
 
 _Data final menunggu `demand_zone_hour` dari Anggota 2. Sambil menunggu, buat dan uji pipeline fitur memakai agregasi cepat satu bulan dari `main_trips`, lalu jalankan ulang pada data final._
 
-- [ ] Fitur waktu: `hour`, `day_of_week`, `month`, `is_weekend`, `is_holiday`.
-- [ ] Fitur historis per zona: `lag_1`, `lag_24`, `lag_168`.
-- [ ] Rolling mean 24 jam dan 168 jam (sudah di-_shift_ agar tidak melihat jam prediksi).
-- [ ] Fitur lokasi: `PU_longitude`, `PU_latitude`; atribut zona: `borough`, `is_airport`, `is_cbd`.
-- [ ] Target regresi: `pickup_count` jam t+1.
-- [ ] Target klasifikasi: `demand_level` (Rendah/Sedang/Tinggi) dengan **batas kelas dari data training saja**.
-- [ ] Split kronologis Train/Validation/Test; _scaler_ di-_fit_ hanya pada training.
-- [ ] Menyiapkan deret waktu kota keseluruhan dan Top-K zona (K = 5) untuk Anggota 3.
-- [ ] Memastikan tidak ada koordinat dropoff dan nilai transaksi pasca-perjalanan di fitur.
-- [ ] Menulis `docs/feature_dictionary.md` (nama, tipe, definisi, tujuan, tersedia saat prediksi atau tidak).
-- [ ] Menjalankan pemeriksaan _data leakage_ pada setiap fitur.
+- [x] Fitur waktu: `hour`, `day_of_week`, `month`, `is_weekend`, `is_holiday`.
+- [x] Fitur historis per zona: `lag_1`, `lag_24`, `lag_168`.
+- [x] Rolling mean 24 jam dan 168 jam (sudah di-_shift_ agar tidak melihat jam prediksi).
+- [x] Fitur lokasi: `PU_longitude`, `PU_latitude`; atribut zona: `borough`, `is_airport`, `is_cbd`.
+- [x] Target regresi: `pickup_count` jam t+1.
+- [x] Target klasifikasi: `demand_level` (Rendah/Sedang/Tinggi) dengan **batas kelas dari data training saja**.
+- [x] Split kronologis Train/Validation/Test; _scaler_ di-_fit_ hanya pada training.
+- [x] Menyiapkan deret waktu kota keseluruhan dan Top-K zona (K = 5) untuk Anggota 3.
+- [x] Memastikan tidak ada koordinat dropoff dan nilai transaksi pasca-perjalanan di fitur.
+- [x] Menulis `docs/feature_dictionary.md` (nama, tipe, definisi, tujuan, tersedia saat prediksi atau tidak).
+- [x] Menjalankan pemeriksaan _data leakage_ pada setiap fitur.
 
 **Output:** dataset fitur+target, deret waktu, `docs/feature_dictionary.md`; notebook `script/05_features.ipynb`
 **Gate:** setiap fitur tersedia saat waktu prediksi, tidak ada leakage, split benar, batas kelas hanya dari training.
 
 ### 4.6 Fase 6A - Baseline
 
-- [ ] Membuat `script/tools/metrics.py` (MAE, RMSE, WAPE, MASE, R², macro-F1) untuk dipakai seluruh tim.
-- [ ] Menghitung baseline **Seasonal Naive (lag 168)** pada validation dan test.
-- [ ] Membuat baseline klasifikasi: kelas mayoritas dan kelas berdasarkan lag 168.
-- [ ] Menyimpan prediksi baseline agar semua model dibandingkan pada periode yang sama.
+- [x] Membuat `script/tools/metrics.py` (MAE, RMSE, WAPE, MASE, R², macro-F1) untuk dipakai seluruh tim.
+- [x] Menghitung baseline **Seasonal Naive (lag 168)** pada validation dan test.
+- [x] Membuat baseline klasifikasi: kelas mayoritas dan kelas berdasarkan lag 168.
+- [x] Menyimpan prediksi baseline agar semua model dibandingkan pada periode yang sama.
 
 ### 4.7 Fase 7 - Dukungan
 
