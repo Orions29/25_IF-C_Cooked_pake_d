@@ -23,6 +23,7 @@ projectAkhir_DS/
 │   ├── datasets_docs/       # Dokumentasi, peta, dan PDF dataset
 │   ├── external/            # Data referensi eksternal
 │   ├── interim/             # Data hasil cleaning dan transformasi
+|   ├── processed            # Processed Dataset
 │   ├── raw/                 # Data sumber asli
 │   │   ├── 2016/
 │   │   └── 2026/
@@ -41,6 +42,9 @@ projectAkhir_DS/
 
 **Aturan penyimpanan:** simpan data sumber tanpa perubahan di `datasets/raw/`, hasil cleaning atau transformasi di `datasets/interim/`, dan hasil analisis di `out/`. Folder `withZone/` berisi data hasil join, sehingga untuk konsistensi sebaiknya dipindahkan ke `datasets/interim/2026/`.
 
+Folder `datasets/processed/` digunakan untuk menyimpan dataset
+hasil pengolahan yang siap digunakan dalam analisis dan pemodelan.
+
 ## Persiapan Dataset
 
 Unduh dataset melalui [Google Drive - Dataset Proyek](https://drive.google.com/drive/folders/1icM9a2faBhOn-KZ-frdPWTNHdGcPMHO3?usp=sharing), kemudian:
@@ -55,29 +59,55 @@ Unduh dataset melalui [Google Drive - Dataset Proyek](https://drive.google.com/d
 
 ## Setup Environment
 
-Contoh setup menggunakan Windows PowerShell:
+Proyek ini menggunakan Python 3.13 dan virtual environment untuk menjaga konsistensi dependensi.
+
+### 1. Membuat Virtual Environment
+
+Jalankan perintah berikut melalui Windows PowerShell:
 
 ```powershell
-# Buat virtual environment
-py -m venv .venv
+# Buat virtual environment menggunakan Python 3.13
+py -3.13 -m venv .venv
 
-# Aktifkan environment
+# Aktifkan virtual environment
 .\.venv\Scripts\Activate.ps1
-
-# Install library yang dibutuhkan
-python -m pip install --upgrade pip
-python -m pip install pandas numpy matplotlib seaborn pyarrow jupyter
 ```
 
-Sesuaikan library tambahan dengan notebook yang digunakan, lalu pilih `.venv` sebagai Python interpreter/kernel di VS Code.
+### 2. Menginstal Dependencies
 
-Library Yang Digunakan:
+Pastikan virtual environment sudah aktif, kemudian jalankan:
 
-1. Python 3.14.7
-2. pandas 3.0.6
-3. numpy 2.5.3
-4. scipy 1.18.1
-5. seaborn 0.13.2
+```powershell
+# Perbarui pip
+python -m pip install --upgrade pip
+
+# Instal seluruh dependencies proyek
+python -m pip install -r requirements.txt
+```
+
+### 3. Memeriksa Dependencies
+
+Untuk memastikan seluruh dependencies terpasang dengan benar:
+
+```powershell
+python -m pip check
+```
+
+### 4. Konfigurasi VS Code
+
+1. Buka Command Palette dengan `Ctrl + Shift + P`.
+2. Pilih `Python: Select Interpreter`.
+3. Pilih interpreter dari folder `.venv`.
+4. Jika menggunakan Jupyter Notebook, pilih kernel dari environment yang sama.
+
+
+
+### Catatan
+
+Daftar library dan versi yang digunakan dalam proyek disimpan di `requirements.txt`.
+
+Gunakan file tersebut sebagai acuan instalasi dependencies agar environment antaranggota kelompok lebih konsisten.
+
 
 ## Menjalankan Proyek
 
