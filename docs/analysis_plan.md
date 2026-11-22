@@ -10,7 +10,7 @@
 | **Versi dokumen**                | v0.1                                           |
 | **Terakhir diperbarui**          | 1 November 2026                                |
 | **Penanggung jawab**             | Rio Meidi A                                    |
-| **Anggota tim**                  | Rio Meidi A, Anggota 2 , Aushaf Fathin I N , Anggota 4 |
+| **Anggota tim**                  | Rio Meidi A, Mufid Dhamarjati K, Aushaf Fathin I N, Erlan Rifqi Davin D |
 | **Seed global (`random_state`)** | 42                                             |
 
 ---
@@ -298,9 +298,9 @@ Lihat `docs/feature_dictionary.md`.
 
 | Jenis                 | Metrik                                                  | Metrik utama | Catatan                                                        |
 | :-------------------- | :------------------------------------------------------ | :----------- | :------------------------------------------------------------- |
-| Regresi / Time Series | MAE, RMSE, WAPE, MASE (+ R² untuk regresi)              | \_\_\_\_     | Hindari MAPE (banyak nilai aktual nol); hitung pada skala asli |
+| Regresi / Time Series | MAE, RMSE, WAPE, MASE (+ R² untuk regresi)              | MASE (pendamping: WAPE) | Hindari MAPE (banyak nilai aktual nol); hitung pada skala asli |
 | Klasifikasi           | Accuracy, precision, recall, macro-F1, confusion matrix | macro-F1     | —                                                              |
-| Pelaporan tambahan    | Metrik terpisah zona ramai vs sepi                      | —            | Definisi "ramai/sepi": \_\_\_\_                                |
+| Pelaporan tambahan    | Metrik terpisah zona ramai vs sepi                      | —            | Definisi "ramai/sepi": ramai = 20% zona teratas menurut total pickup periode training (Jan–Apr); sepi = zona lainnya. Daftar dihitung sekali dari training dan dipakai semua model |
 
 ### 9.5 Daftar Eksperimen
 
@@ -406,7 +406,7 @@ Catat **setiap** perubahan keputusan di sini, termasuk perubahan seed, periode, 
 | No. | Tanggal | Bagian yang diubah | Keputusan lama | Keputusan baru | Alasan (berdasarkan bukti, bukan hasil model) | Diputuskan oleh | Dampak ke fase lain |
 | :-: | :------ | :----------------- | :------------- | :------------- | :-------------------------------------------- | :-------------- | :------------------ |
 |  1  | 22 Nov 2026 | 6 (Analisis Spasial), 9.2 (6D), 9.3 | Kosong / Draft | KNN k=8; rata-rata pickup/jam/bulan; FDR-BH α=0,05; periode musiman 24 jam; Top-K=5 dari training | Queen/Rook punya 6 island (uji pada taxi_zones.shp); bulan berbeda panjang; Top-K dari training mencegah leakage | Aushaf Fathin I N (menunggu review tim) | Fase 4B, 6D, 7 (tuning TS) |
-|  2  |         |                    |                |                |                                               |                 |                     |
+|  2  | 22 Nov 2026 | 9.4 (metrik utama, definisi ramai/sepi) | Kosong | Metrik utama regresi/TS = MASE (pendamping WAPE); ramai = 20% zona teratas total pickup training | MASE bebas skala dan langsung terbaca terhadap baseline seasonal naive (MASE < 1 = lebih baik), selaras syarat baseline; definisi dari training mencegah leakage dan seragam untuk 6B, 6C, 6D | Aushaf Fathin I N (usulan, menunggu review tim) | 6B, 6C, 6D, 7 |
 |  3  |         |                    |                |                |                                               |                 |                     |
 
 ---
