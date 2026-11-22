@@ -10,7 +10,7 @@
 | **Versi dokumen**                | v0.1                                           |
 | **Terakhir diperbarui**          | 1 November 2026                                |
 | **Penanggung jawab**             | Rio Meidi A                                    |
-| **Anggota tim**                  | Rio Meidi A, Anggota 2 , Aushaf Fathin I N , Anggota 4 |
+| **Anggota tim**                  | Rio Meidi A, Mufid Dhamarjati K, Aushaf Fathin I N, Erlan Rifqi Davin D |
 | **Seed global (`random_state`)** | 42                                             |
 
 ---
@@ -200,13 +200,13 @@ Diisi otomatis dari notebook `1_data_cleaning.ipynb`. Berkas: `out/output_eda/03
 | :----------------------------- | :-------------------------------------------------------------------------------------- | :----: |
 | Autokorelasi global            | Global Moran's I                                                                        | Final  |
 | Hotspot / cold spot lokal      | Getis-Ord Gi\*                                                                          | Final  |
-| Variabel yang diuji            | ☐ Total pickup per zona per bulan · ☐ Rata-rata pickup per jam · ☐ \_\_\_\_             | Draft  |
-| _Spatial weights_              | ☐ Poligon _contiguity_ (Queen / Rook) · ☐ KNN (k = \_**\_) · ☐ Distance band (\_\_** m) | Draft  |
-| Penanganan zona tanpa tetangga | \_\_\_\_                                                                                | Draft  |
-| Koreksi uji berganda           | FDR (α = \_\_\_\_)                                                                      | Draft  |
-| Kriteria hotspot / cold spot   | \_\_\_\_ (mis. z-score, p-value terkoreksi)                                             | Draft  |
+| Variabel yang diuji            | ☑ Rata-rata pickup per jam per zona per bulan (dinormalisasi jumlah jam valid; Feb 28 hari, Mar ada jam DST hilang) | Draft  |
+| _Spatial weights_              | ☑ KNN (k = 8) pada centroid zona (EPSG:2263); cek sensitivitas k = 6 dan 10. Queen/Rook ditolak: 6 zona island (ID 1, 46, 103, 104, 105, 202) | Draft  |
+| Penanganan zona tanpa tetangga | Tidak ada island pada KNN. Zona 264 dan 265 keluar dari analisis spasial karena tidak ada di shapefile | Draft  |
+| Koreksi uji berganda           | FDR Benjamini-Hochberg (α = 0,05); 999 permutasi; seed 42 (`np.random.seed(42)` untuk Moran, `seed=42` untuk Gi\*) | Draft  |
+| Kriteria hotspot / cold spot   | p-value terkoreksi FDR < 0,05 dan `Zs` > 0 = hotspot; `Zs` < 0 = cold spot (cek `p_sim` satu/dua sisi di notebook) | Draft  |
 | Stabilitas antarbulan          | Jaccard Index antar pasangan bulan                                                      | Final  |
-| Library                        | `geopandas`, `libpysal`, `esda` (versi: \_\_\_\_)                                       | Draft  |
+| Library                        | `geopandas` 1.2.0, `libpysal` 4.15.1, `esda` 2.10.0, `statsmodels` 0.15.0 (samakan dengan `requirements.txt`) | Draft  |
 
 ---
 
@@ -286,21 +286,21 @@ Lihat `docs/feature_dictionary.md`.
 | :--- | :---------------------- | :----: | :------------------- | :--------------- | :-------------------------------------------------- |
 | 6B   | Linear, Ridge, Lasso    |  P11   | `pickup_count`       | \_\_\_\_         | Opsional: Polynomial / LightGBM                     |
 | 6C   | SVM linear dan RBF      |  P10   | `demand_level`       | \_\_\_\_         | `class_weight="balanced"` bila kelas tidak seimbang |
-| 6D   | Holt-Winters dan SARIMA |  P12   | Deret `pickup_count` | \_\_\_\_         | Periode musiman: ☐ 24 jam · ☐ Harian (7)            |
+| 6D   | Holt-Winters dan SARIMA |  P12   | Deret `pickup_count` | Aushaf Fathin I N | Periode musiman: ☑ 24 jam (deret per jam) · ☐ Harian (7)            |
 
 ### 9.3 Strategi Skala Komputasi
 
 - SVM: ☐ Sampel berurutan waktu dari training · ☐ Top-K zona · ☐ Kernel linear saja
   - Ukuran sampel: \_**\_ · Alasan: \_\_** · Seed: \_\_\_\_
-- Time series: K (Top-K zona) = \_**\_ (rekomendasi awal 5) · Kriteria pemilihan Top-K: \_\_**
+- Time series: K (Top-K zona) = 5 · Kriteria pemilihan Top-K: total pickup periode **training (Jan–Apr) saja**, agar tidak ada kebocoran dari validation/test
 
 ### 9.4 Metrik
 
 | Jenis                 | Metrik                                                  | Metrik utama | Catatan                                                        |
 | :-------------------- | :------------------------------------------------------ | :----------- | :------------------------------------------------------------- |
-| Regresi / Time Series | MAE, RMSE, WAPE, MASE (+ R² untuk regresi)              | \_\_\_\_     | Hindari MAPE (banyak nilai aktual nol); hitung pada skala asli |
+| Regresi / Time Series | MAE, RMSE, WAPE, MASE (+ R² untuk regresi)              | MASE (pendamping: WAPE) | Hindari MAPE (banyak nilai aktual nol); hitung pada skala asli |
 | Klasifikasi           | Accuracy, precision, recall, macro-F1, confusion matrix | macro-F1     | —                                                              |
-| Pelaporan tambahan    | Metrik terpisah zona ramai vs sepi                      | —            | Definisi "ramai/sepi": \_\_\_\_                                |
+| Pelaporan tambahan    | Metrik terpisah zona ramai vs sepi                      | —            | Definisi "ramai/sepi": ramai = 20% zona teratas menurut total pickup periode training (Jan–Apr); sepi = zona lainnya. Daftar dihitung sekali dari training dan dipakai semua model |
 
 ### 9.5 Daftar Eksperimen
 
@@ -405,8 +405,8 @@ Catat **setiap** perubahan keputusan di sini, termasuk perubahan seed, periode, 
 
 | No. | Tanggal | Bagian yang diubah | Keputusan lama | Keputusan baru | Alasan (berdasarkan bukti, bukan hasil model) | Diputuskan oleh | Dampak ke fase lain |
 | :-: | :------ | :----------------- | :------------- | :------------- | :-------------------------------------------- | :-------------- | :------------------ |
-|  1  |         |                    |                |                |                                               |                 |                     |
-|  2  |         |                    |                |                |                                               |                 |                     |
+|  1  | 22 Nov 2026 | 6 (Analisis Spasial), 9.2 (6D), 9.3 | Kosong / Draft | KNN k=8; rata-rata pickup/jam/bulan; FDR-BH α=0,05; periode musiman 24 jam; Top-K=5 dari training | Queen/Rook punya 6 island (uji pada taxi_zones.shp); bulan berbeda panjang; Top-K dari training mencegah leakage | Aushaf Fathin I N (menunggu review tim) | Fase 4B, 6D, 7 (tuning TS) |
+|  2  | 22 Nov 2026 | 9.4 (metrik utama, definisi ramai/sepi) | Kosong | Metrik utama regresi/TS = MASE (pendamping WAPE); ramai = 20% zona teratas total pickup training | MASE bebas skala dan langsung terbaca terhadap baseline seasonal naive (MASE < 1 = lebih baik), selaras syarat baseline; definisi dari training mencegah leakage dan seragam untuk 6B, 6C, 6D | Aushaf Fathin I N (usulan, menunggu review tim) | 6B, 6C, 6D, 7 |
 |  3  |         |                    |                |                |                                               |                 |                     |
 
 ---
