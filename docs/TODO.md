@@ -236,7 +236,7 @@ _Prototipe boleh dimulai dengan satu bulan data; jalankan ulang pada `main_trips
 
 ---
 
-## 👤 Anggota 3 - [Nama] · Analisis Spasial & Time Series
+## 👤 Anggota 3 - [Aushaf Fathin Irsyad Nabil] · Analisis Spasial & Time Series
 
 **Fase:** 4B, 6D
 
