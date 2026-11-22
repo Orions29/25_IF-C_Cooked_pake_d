@@ -1,0 +1,13 @@
+feature,coef,abs_coef
+num__is_cbd,0.40584390835926354,0.40584390835926354
+num__roll_168,0.3797424565319867,0.3797424565319867
+num__lag_1,0.27596284400867455,0.27596284400867455
+num__lag_168,0.22637260899370734,0.22637260899370734
+num__lag_24,0.09328296203701875,0.09328296203701875
+num__hour_of_day,0.02172906507892881,0.02172906507892881
+borough__PU_borough_Brooklyn,0.0,0.0
+borough__PU_borough_Manhattan,0.0,0.0
+borough__PU_borough_Queens,-0.0,0.0
+borough__PU_borough_Staten Island,-0.0,0.0
+borough__PU_borough_EWR,0.0,0.0
+num__roll_24,0.0,0.0
