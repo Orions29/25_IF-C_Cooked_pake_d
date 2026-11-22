@@ -66,7 +66,7 @@ py -m venv .venv
 
 # Install library yang dibutuhkan
 python -m pip install --upgrade pip
-python -m pip install pandas numpy matplotlib seaborn pyarrow jupyter
+python -m pip install -r requirements.txt
 ```
 
 Sesuaikan library tambahan dengan notebook yang digunakan, lalu pilih `.venv` sebagai Python interpreter/kernel di VS Code.
@@ -78,6 +78,8 @@ Library Yang Digunakan:
 3. numpy 2.5.3
 4. scipy 1.18.1
 5. seaborn 0.13.2
+6. scikit-learn 1.9.1, statsmodels 0.15.0
+7. geopandas 1.2.0, libpysal 4.15.1, esda 2.10.0, folium 1.0.0
 
 ## Menjalankan Proyek
 
