@@ -21,10 +21,10 @@
 
 | Kode | Pertanyaan                                                                                           | Dijawab di    | Penanggung jawab | Status jawaban |
 | :--: | :--------------------------------------------------------------------------------------------------- | :------------ | :--------------- | :------------- |
-| RQ1  | Bagaimana pola pickup berdasarkan jam, hari, dan bulan?                                              | Fase 3        | \_\_\_\_         | [ ]            |
-| RQ2  | Zona mana yang menjadi hotspot / cold spot, dan apakah stabil antarbulan?                            | Fase 4B       | \_\_\_\_         | [ ]            |
-| RQ3  | Seberapa akurat model memprediksi pickup per zona per jam, dan model mana yang paling layak dipilih? | Fase 6, 7     | \_\_\_\_         | [ ]            |
-| RQ4  | Zona dan waktu mana yang layak diprioritaskan berdasarkan volume pickup?                             | Fase 3, 4B, 7 | \_\_\_\_         | [ ]            |
+| RQ1  | Bagaimana pola pickup berdasarkan jam, hari, dan bulan?                                              | Fase 3        | Mufid (Anggota 2)  | [ ]            |
+| RQ2  | Zona mana yang menjadi hotspot / cold spot, dan apakah stabil antarbulan?                            | Fase 4B       | Aushaf (Anggota 3) | [ ]            |
+| RQ3  | Seberapa akurat model memprediksi pickup per zona per jam, dan model mana yang paling layak dipilih? | Fase 6, 7     | Erlan (Anggota 4)  | [ ]            |
+| RQ4  | Zona dan waktu mana yang layak diprioritaskan berdasarkan volume pickup?                             | Fase 3, 4B, 7 | Mufid & Erlan      | [ ]            |
 
 **Catatan interpretasi:** jumlah pickup adalah _served demand_ (perjalanan yang berhasil dilayani), bukan seluruh permintaan taksi yang sebenarnya.
 
@@ -51,7 +51,7 @@
 | Apr       | yellow_tripdata_2026-04.parquet | 61.82 MB |      3831240 |           20 | 2026-04-01 00:40:05 - 2026-04-30 23:58:15 |         |
 | Mei       | yellow_tripdata_2026-05.parquet | 66.47 MB |      4090836 |           20 | 2026-05-01 00:04:59 - 2026-05-31 23:41:51 |         |
 | Jun       | yellow_tripdata_2026-06.parquet | 62.43 MB |      3837248 |           21 | 2026-06-01 00:04:22 - 2026-06-30 23:50:27 |         |
-| **Total** |                                 |          |              |              |                                           |         |
+| **Total** | 6 file Parquet                  | 372.62 MB |       22836530 |              |                                           |         |
 
 #### Catatan
 
@@ -85,11 +85,11 @@
 
 **Hasil pemeriksaan tabel centroid** _(diisi setelah Fase 2B)_
 
-- [ ] Satu zona = satu record
-- [ ] Pasangan koordinat unik per zona
-- [ ] Semua koordinat berada di wilayah NYC
-- [ ] Zona tanpa geometri tercatat: \_\_\_\_
-- [ ] Jumlah baris `main_trips` sebelum dan sesudah join sama: \_**\_ / \_\_**
+- [x] Satu zona = satu record
+- [x] Pasangan koordinat unik per zona
+- [x] Semua koordinat berada di wilayah NYC
+- [x] Zona tanpa geometri tercatat: 264 (Unknown) dan 265 (Outside of NYC) — dibuang di C4/C5
+- [x] Jumlah baris `main_trips` sebelum dan sesudah join sama: **22.274.550 / 22.274.550**
 
 ---
 
@@ -154,16 +154,30 @@ Diisi otomatis dari notebook `1_data_cleaning.ipynb`. Berkas: `out/output_eda/03
 
 | Aturan    | Baris sebelum | Baris dibuang | Baris sesudah | % dibuang | Konsentrasi pada tanggal/periode tertentu? |
 | :-------- | ------------: | ------------: | ------------: | --------: | :----------------------------------------- |
-| C1        |               |               |               |           |                                            |
-| C2        |               |               |               |           |                                            |
-| ...       |               |               |               |           |                                            |
-| **Total** |               |               |               |           |                                            |
+| C1        |    22.836.530 |            15 |    22.836.515 |    0,0001 | Tidak (maks 40% di 2025-12-31, tapi cuma 15 baris) |
+| C2        |    22.836.515 |             0 |    22.836.515 |    0,0000 | – |
+| C3        |    22.836.515 |       286.366 |    22.550.149 |    1,2540 | Tidak (maks 0,75% di 2026-05-14) |
+| C4        |    22.550.149 |        35.923 |    22.514.226 |    0,1593 | Tidak (maks 0,90% di 2026-06-13) |
+| C5        |    22.514.226 |       108.256 |    22.405.970 |    0,4808 | Tidak (maks 0,88% di 2026-06-14) |
+| C6        |    22.405.970 |             0 |    22.405.970 |    0,0000 | – (tidak ada duplikat penuh) |
+| C7        |    22.405.970 |           616 |    22.405.354 |    0,0027 | Tidak (maks 1,46% di 2026-02-26) |
+| C8        |    22.405.354 |       130.786 |    22.274.568 |    0,5837 | Tidak (maks 1,13% di 2026-01-03) |
+| C9        |    22.274.568 |            18 |    22.274.550 |    0,0001 | Tidak (maks 5,56% di 2026-01-03, cuma 18 baris) |
+| C10       |    22.274.550 |             0 |    22.274.550 |    0,0000 | – (tidak ada kode asing) |
+| **Total** | **22.836.530** |   **561.980** | **22.274.550** | **2,4609** | Tidak terkonsentrasi di satu tanggal |
 
 ### 4.7 Anomali & Penanganannya
 
 | Anomali | Cara menemukan | Kesalahan pencatatan atau kejadian nyata? | Keputusan |
 | :------ | :------------- | :---------------------------------------- | :-------- |
-|         |                |                                           |           |
+| Tarif negatif (`fare_amount` < 0) | Hitung `fare_amount < 0` per bulan (`02_data_quality.csv`) | Kesalahan pencatatan | Dibuang (C8) |
+| Durasi <= 0 atau > 24 jam | `durasi = dropoff - pickup` | Kesalahan argometer / pencatatan | Dibuang (C3) |
+| Pickup di luar Jan–Jun 2026 | Bandingkan dengan rentang periode | Data nyasar / salah input | Dibuang (C1) |
+| Dropoff Juli di file Juni (899 baris) | `dropoff > 2026-06-30` | Kejadian nyata (perjalanan lewat tengah malam) | Dibiarkan, pickup tetap di Juni |
+| Zona Unknown (264/265) | `PULocationID`/`DOLocationID` di luar 1–263 | Lokasi tidak diketahui | Dibuang (C4/C5) |
+| Duplikat penuh | `DataFrame.duplicated()` | Tidak ditemukan (0 baris) | Tidak ada yang dibuang (C6 = 0) |
+| Kode kategori asing | `value_counts` VendorID/RatecodeID/payment_type | Tidak ditemukan (0 baris) | Tidak ada yang dibuang (C10 = 0) |
+| Jarak nol (`trip_distance` == 0) | Hitung `trip_distance == 0` | Bisa kejadian nyata (perjalanan sangat pendek) | Dibiarkan |
 
 ---
 

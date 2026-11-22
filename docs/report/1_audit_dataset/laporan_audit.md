@@ -48,7 +48,20 @@ Karena kelima kolom yang kosong itu cuma kolom pendukung (bukan wajib untuk anal
 - Ada durasi tidak wajar (dropoff sebelum pickup / sangat panjang). Ditangani di cleaning (C3).
 - Ada `PULocationID` / `DOLocationID` bernilai zona Unknown (264/265). Dibuang di cleaning (C4/C5).
 
-## 5. Kesimpulan
+## 5. Duplikat, Kode Kategori, dan Nilai Ekstrem
+
+Hasil hitung ulang (`00_audit_outputs.ipynb`, detail di `00_file_inventory.csv`, `01_schema_comparison.csv`, `02_data_quality.csv`):
+
+- **Duplikat penuh:** **0 baris** di semua bulan (bukan catatan berulang).
+- **Kode kategori:** `VendorID`, `RatecodeID`, `payment_type` semuanya valid, **0 kode asing**.
+- **Pickup di luar Jan–Jun 2026:** 15 baris (contoh 2001, 2008, 2025-12-31).
+- **Dropoff di luar rentang:** 909 baris, mayoritas **899 di file Juni** karena perjalanan lewat tengah malam ke 1 Juli (kejadian nyata, bukan error).
+- **Durasi tidak valid** (<= 0 atau > 24 jam): 286.366 baris (sama dengan yang dibuang C3).
+- **Tarif negatif:** ~129.115 baris (`fare_amount`), `total_amount` negatif ~132.643 baris.
+- **Jarak > 100 mil:** 916 baris. **`passenger_count` > 6:** 24 baris.
+- **Zona pickup/dropoff Unknown (264/265):** ada di tiap bulan (ribuan baris), ditangani C4/C5.
+
+## 6. Kesimpulan
 
 Dataset **layak dipakai** untuk analisis dan modeling:
 

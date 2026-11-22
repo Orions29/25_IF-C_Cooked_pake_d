@@ -65,6 +65,14 @@ Atribut zona:
 
 Kolom `main_trips`: waktu (2), koordinat & atribut pickup (6), koordinat & atribut dropoff (6), atribut perjalanan & biaya (16), `_bulan` (1).
 
+## 5.1 Konsentrasi Penghapusan
+
+Dicek per tanggal (`04_cleaning_concentration.csv`). Penghapusan **tidak terkonsentrasi** di tanggal/periode tertentu:
+
+- C3–C8: porsi terbesar pada satu tanggal < 2% (mis. C3 maks 0,75% di 2026-05-14, C8 maks 1,13% di 2026-01-03).
+- C1: 40% ada di 2025-12-31, tapi totalnya cuma 15 baris.
+- C9: 5,56% di 2026-01-03, tapi totalnya cuma 18 baris.
+
 ## 6. Kesimpulan
 
 - Cleaning selesai, sisa **22.274.550** baris (97,54% data awal).
