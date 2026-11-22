@@ -8,12 +8,12 @@ Pembagian tugas untuk **4 anggota**, disusun dari `Brief_Project_NYC_Taxi_2026.m
 
 ## 1. Ringkasan Peran
 
-| Anggota             | Peran                            | Fase yang dipegang                   | Menjawab |
-| :------------------ | :------------------------------- | :----------------------------------- | :------- |
-| **1 - Rio Meidi A** | Data Engineer & Feature Engineer | 0, 1, 2 (termasuk tabel zona), 5, 6A | –        |
-| **2 - Mufid Dhamarjati K**      | EDA, Agregasi & Regresi          | 3, 4A, 6B                            | RQ1, RQ4 |
-| **3 - Aushaf Fathin I N**      | Analisis Spasial & Time Series   | 4B, 6D                               | RQ2      |
-| **4 - Erlan Rifqi Davin D**      | Infrastruktur, SVM & Optimasi    | Persiapan env & kalender, 6C, 7      | RQ3, RQ4 |
+| Anggota                     | Peran                            | Fase yang dipegang                   | Menjawab |
+| :-------------------------- | :------------------------------- | :----------------------------------- | :------- |
+| **1 - Rio Meidi A**         | Data Engineer & Feature Engineer | 0, 1, 2 (termasuk tabel zona), 5, 6A | –        |
+| **2 - Mufid Dhamarjati K**  | EDA, Agregasi & Regresi          | 3, 4A, 6B                            | RQ1, RQ4 |
+| **3 - Aushaf Fathin I N**   | Analisis Spasial & Time Series   | 4B, 6D                               | RQ2      |
+| **4 - Erlan Rifqi Davin D** | Infrastruktur, SVM & Optimasi    | Persiapan env & kalender, 6C, 7      | RQ3, RQ4 |
 
 **Beban kerja per gelombang**
 
@@ -70,18 +70,18 @@ Pembagian tugas untuk **4 anggota**, disusun dari `Brief_Project_NYC_Taxi_2026.m
 ### 4.1 Fase 0 - Persiapan & Analysis Plan
 
 - [ ] Menetapkan RQ1–RQ4 dan target penelitian (jumlah pickup 1 jam ke depan).
-- [ ] Menetapkan periode **Januari – Juni 2026**.
+- [x] Menetapkan periode **Januari – Juni 2026**.
 - [ ] Menuliskan aturan cleaning dan aturan penggantian ID → koordinat **sebelum** diterapkan.
 - [ ] Menetapkan metode hotspot (Moran's I + Getis-Ord Gi\*) dan skema split data bersama Anggota 3.
-- [ ] Mencatat seed, periode, dan semua keputusan di `docs/analysis_plan.md`.
+- [x] Mencatat seed, periode, dan semua keputusan di `docs/analysis_plan.md`.
 
 **Output:** `docs/analysis_plan.md`
 **Gate:** target, periode, aturan koordinat, dan skema evaluasi sudah ditentukan.
 
 ### 4.2 Fase 1 - Audit Dataset (6 file Parquet)
 
-- [ ] Memastikan keenam bulan (Jan–Jun 2026) tersedia dan lengkap.
-- [ ] Mencatat ukuran file, jumlah baris, dan jumlah kolom tiap file.
+- [x] Memastikan keenam bulan (Jan–Jun 2026) tersedia dan lengkap.
+- [x] Mencatat ukuran file, jumlah baris, dan jumlah kolom tiap file.
 - [ ] Membandingkan nama kolom dan tipe data antarbulan; mencatat kolom yang kosong seluruhnya atau hanya ada di bulan tertentu.
 - [ ] Memeriksa apakah kolom `request_source` ada, lalu menyesuaikan data dictionary dengan skema asli.
 - [ ] Memeriksa rentang `tpep_pickup_datetime` dan `tpep_dropoff_datetime`, termasuk timestamp di luar Jan–Jun 2026.
@@ -236,7 +236,7 @@ _Prototipe boleh dimulai dengan satu bulan data; jalankan ulang pada `main_trips
 
 ---
 
-## 👤 Anggota 3 - [Nama] · Analisis Spasial & Time Series
+## 👤 Anggota 3 - [Aushaf Fathin Irsyad Nabil] · Analisis Spasial & Time Series
 
 **Fase:** 4B, 6D
 
