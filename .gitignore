@@ -31,3 +31,6 @@ archive/*
 !archive/.gitkeep
 
 *.zip
+# Python
+__pycache__/
+*.pyc
