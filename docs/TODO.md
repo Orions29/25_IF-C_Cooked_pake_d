@@ -279,7 +279,7 @@ _Persiapan (spatial weights, library) bisa dimulai begitu `zone_centroid_lookup.
 
 ---
 
-## 👤 Anggota 4 - [Nama] · Infrastruktur, SVM & Optimasi
+## 👤 Anggota 4 - Erlan Rifqi Davin D · Infrastruktur, SVM & Optimasi
 
 **Fase:** Persiapan env & kalender (paralel dengan Fase 0–2), 6C, 7
 
