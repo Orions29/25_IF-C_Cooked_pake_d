@@ -34,32 +34,35 @@
 
 ## 2. Dataset & Periode
 
-| Item                | Keputusan                                                            | Status |
-| :------------------ | :------------------------------------------------------------------- | :----: |
-| Sumber              | NYC TLC, Yellow Taxi Trip Records                                    | Final  |
-| Dataset utama       | **2026**                                                             | Final  |
-| Periode             | **Januari - Juni 2026** (6 file Parquet)                             | Final  |
-| Data 2016 (Jan-Mar) | ☐ Tidak dipakai · ☐ Pembanding terpisah (tidak digabung dengan 2026) | Draft  |
-| Zona waktu          | Waktu lokal New York                                                 | Final  |
+| Item          | Keputusan                                | Status |
+| :------------ | :--------------------------------------- | :----: |
+| Sumber        | NYC TLC, Yellow Taxi Trip Records        | Final  |
+| Dataset utama | **2026**                                 | Final  |
+| Periode       | **Januari - Juni 2026** (6 file Parquet) | Final  |
+| Zona waktu    | Waktu lokal New York                     | Final  |
 
 ### 2.1 Inventaris File _(diisi setelah Fase 1)_
 
-| Bulan     | Nama file | Ukuran | Jumlah baris | Jumlah kolom | Rentang pickup (min - maks) | Catatan |
-| :-------- | :-------- | -----: | -----------: | -----------: | :-------------------------- | :------ |
-| Jan       |           |        |              |              |                             |         |
-| Feb       |           |        |              |              |                             |         |
-| Mar       |           |        |              |              |                             |         |
-| Apr       |           |        |              |              |                             |         |
-| Mei       |           |        |              |              |                             |         |
-| Jun       |           |        |              |              |                             |         |
-| **Total** |           |        |              |              |                             |         |
+| Bulan     | Nama file                       |   Ukuran | Jumlah baris | Jumlah kolom | Rentang pickup (min - maks)               | Catatan |
+| :-------- | :------------------------------ | -------: | -----------: | -----------: | :---------------------------------------- | :------ |
+| Jan       | yellow_tripdata_2026-01.parquet | 61.19 MB |      3724889 |           20 | 2026-01-01 00:54:04 - 2026-01-31 23:43:12 |         |
+| Feb       | yellow_tripdata_2026-02.parquet | 55.96 MB |      3399866 |           20 | 2026-02-01 00:05:57 - 2026-02-28 23:13:53 |         |
+| Mar       | yellow_tripdata_2026-03.parquet | 64.75 MB |      3952451 |           20 | 2026-03-01 00:02:26 - 2026-03-31 23:14:21 |         |
+| Apr       | yellow_tripdata_2026-04.parquet | 61.82 MB |      3831240 |           20 | 2026-04-01 00:40:05 - 2026-04-30 23:58:15 |         |
+| Mei       | yellow_tripdata_2026-05.parquet | 66.47 MB |      4090836 |           20 | 2026-05-01 00:04:59 - 2026-05-31 23:41:51 |         |
+| Jun       | yellow_tripdata_2026-06.parquet | 62.43 MB |      3837248 |           21 | 2026-06-01 00:04:22 - 2026-06-30 23:50:27 |         |
+| **Total** |                                 |          |              |              |                                           |         |
+
+#### Catatan
+
+- di Tabel bulan juni ada tambahan kolom request_source yang harusnya dari 20 jadi 21. Direncanakan akan dihapus
 
 ### 2.2 Temuan Skema _(diisi setelah Fase 1)_
 
-- Konsistensi nama kolom dan tipe data antarbulan: \_\_\_\_
-- Kolom yang kosong seluruhnya / hanya ada pada bulan tertentu: \_\_\_\_
-- Status kolom `request_source` (ada / tidak): \_\_\_\_
-- Apakah dataset 2026 sesuai tujuan penelitian: \_**\_ (alasan: \_\_**)
+- Konsistensi nama kolom dan tipe data antarbulan: Semua sesuai tipedatanya kecuali ada kelebihan kolom pada bulan 6
+- Kolom yang kosong seluruhnya / hanya ada pada bulan tertentu: tidak ada
+- Status kolom `request_source` (ada / tidak): ada tapi mau dihapus aja
+- Apakah dataset 2026 sesuai tujuan penelitian: Ya sepertinya
 
 ---
 
