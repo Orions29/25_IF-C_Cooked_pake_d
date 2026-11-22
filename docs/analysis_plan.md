@@ -120,7 +120,7 @@ Baris dengan tarif/jarak bermasalah **tidak otomatis dibuang** dari jalur demand
 | C8  | `fare_amount`, `total_amount` negatif / ekstrem  | `fare_amount`, `total_amount`                   | negatif / > $500 (nilai kosong dibiarkan)             | Demand + Revenue            | Audit menemukan tarif negatif (mis. fare_amount = -70)                                                             | Final  |
 | C9  | `passenger_count` nol / ekstrem                  | `passenger_count`                               | negatif / > 6 (nilai kosong dibiarkan)                | Demand + Revenue            | Jumlah penumpang taksi wajar max 6; ~20–30% missing per bulan dibiarkan, bukan dibuang                            | Final  |
 | C10 | Kode kategori tidak dikenal                      | `VendorID`, `RatecodeID`, `payment_type`        | di luar daftar referensi TLC (nilai kosong dibiarkan) | Demand + Revenue            | VendorID∈{1,2,6,7}, RatecodeID∈{1,2,3,4,5,6,99}, payment_type∈{0,1,2,3,4,5,6}; NaN RatecodeID dibiarkan           | Final  |
-| C11 | \_\_\_\_                                         | \_\_\_\_                                        | \_\_\_\_                                              | \_\_\_\_                    |                                                                                                                    | Draft  |
+| C11 | Tidak ada aturan tambahan                         | –                                               | –                                                     | –                           | –                                                                                                                  | –      |
 
 ### 4.3 Penanganan Missing Values
 
@@ -241,15 +241,15 @@ Diisi otomatis dari notebook `1_data_cleaning.ipynb`. Berkas: `out/output_eda/03
 
 ### 7.4 Definisi `demand_level`
 
-- Metode batas kelas: ☐ Persentil 33/66 · ☐ Persentil 25/75 · ☐ Relatif terhadap rata-rata historis zona · ☐ \_\_\_\_
+- Metode batas kelas: ☑ Persentil 33/66 · ☐ Persentil 25/75 · ☐ Relatif terhadap rata-rata historis zona
 - Batas dihitung **hanya dari data training**, lalu dipakai ulang di validation dan test.
-- Nilai batas: \_\_\_\_
-- Distribusi kelas pada training: \_\_\_\_
+- Nilai batas: **Rendah <= 0 · Sedang <= 4 · Tinggi > 4** (pickup per zona per jam)
+- Distribusi kelas pada training: **Rendah 37,9% · Sedang 31,0% · Tinggi 31,1%**
 
 ### 7.5 Transformasi Target
 
-- Distribusi target (proporsi nol, kemiringan, _outlier_) dari EDA: \_\_\_\_
-- Transformasi `log1p`: ☐ Dipakai · ☐ Tidak — alasan: \_\_\_\_ (metrik tetap dihitung pada skala asli)
+- Distribusi target (proporsi nol, kemiringan, _outlier_) dari EDA: **40,18% nol; skew 4,7 (sangat miring); median 1, mean 19,6, q95 128, q99 274, max 952**
+- Transformasi `log1p`: ☐ Dipakai · ☑ Tidak — alasan: **distribusi miring & banyak nol; percobaan log1p di validation jauh lebih buruk (WAPE 2,97–4,44, R² negatif), jadi model final pakai skala asli** (metrik tetap dihitung pada skala asli)
 
 ### 7.6 Kamus Fitur
 
@@ -284,14 +284,14 @@ Lihat `docs/feature_dictionary.md`.
 
 | Kode | Model                   | Materi | Target               | Penanggung jawab | Catatan penting                                     |
 | :--- | :---------------------- | :----: | :------------------- | :--------------- | :-------------------------------------------------- |
-| 6B   | Linear, Ridge, Lasso    |  P11   | `pickup_count`       | \_\_\_\_         | Opsional: Polynomial / LightGBM                     |
-| 6C   | SVM linear dan RBF      |  P10   | `demand_level`       | \_\_\_\_         | `class_weight="balanced"` bila kelas tidak seimbang |
+| 6B   | Linear, Ridge, Lasso    |  P11   | `pickup_count`       | Mufid Dhamarjati K | Opsional: Polynomial / LightGBM                     |
+| 6C   | SVM linear dan RBF      |  P10   | `demand_level`       | Erlan Rifqi Davin D | `class_weight="balanced"` bila kelas tidak seimbang |
 | 6D   | Holt-Winters dan SARIMA |  P12   | Deret `pickup_count` | Aushaf Fathin I N | Periode musiman: ☑ 24 jam (deret per jam) · ☐ Harian (7)            |
 
 ### 9.3 Strategi Skala Komputasi
 
-- SVM: ☐ Sampel berurutan waktu dari training · ☐ Top-K zona · ☐ Kernel linear saja
-  - Ukuran sampel: \_**\_ · Alasan: \_\_** · Seed: \_\_\_\_
+- SVM: ☐ Sampel berurutan waktu · ☐ Top-K zona · ☑ Sampel stratified dari training + kernel linear & RBF
+  - Ukuran sampel: **Linear 50.000/kelas, RBF 5.000/kelas** · Alasan: **RBF lambat di data besar; sampling hanya dari training** · Seed: **42**
 - Time series: K (Top-K zona) = 5 · Kriteria pemilihan Top-K: total pickup periode **training (Jan–Apr) saja**, agar tidak ada kebocoran dari validation/test
 
 ### 9.4 Metrik
@@ -318,10 +318,10 @@ Lihat `docs/feature_dictionary.md`.
 
 | Model         | Parameter            | Rentang yang dicoba | Cara                   | Skema validasi                                              |
 | :------------ | :------------------- | :------------------ | :--------------------- | :---------------------------------------------------------- |
-| Ridge / Lasso | `alpha`              | \_\_\_\_            | Grid search            | `TimeSeriesSplit` (_expanding window_), n_splits = \_\_\_\_ |
-| SVM           | `C`, `gamma`, kernel | \_\_\_\_            | Grid / random search   | `TimeSeriesSplit`                                           |
-| SARIMA        | (p,d,q)(P,D,Q)       | \_\_\_\_            | AIC / error validation | —                                                           |
-| Holt-Winters  | jenis tren & musiman | \_\_\_\_            | Error validation       | —                                                           |
+| Ridge / Lasso | `alpha`              | Ridge {0,1; 1; 10; 100; 1000}, Lasso {0,001; 0,01; 0,1; 1} | Grid search            | `TimeSeriesSplit` (_expanding window_), n_splits = 3 |
+| SVM           | `C`, `gamma`, kernel | Linear C {0,01; 0,1; 1; 10}; RBF C {0,1; 1; 10}, gamma {scale; 0,01; 0,1} | Grid search (40.000 baris training) | `TimeSeriesSplit`, n_splits = 4                      |
+| SARIMA        | (p,d,q)(P,D,Q)       | Dicari via AIC / error validation (periode musiman 24) | AIC / error validation | —                                                           |
+| Holt-Winters  | jenis tren & musiman | Dicari via error validation (periode musiman 24)      | Error validation       | —                                                           |
 
 Data test **tidak** dipakai dalam tuning.
 
@@ -336,14 +336,14 @@ Data test **tidak** dipakai dalam tuning.
 ### 10.3 Optimasi Keputusan: coverage@K _(RQ4)_
 
 - Definisi: coverage@K = pickup aktual di K zona terpilih ÷ total pickup aktual (per jam, lalu dirata-ratakan).
-- Nilai K yang diuji: \_\_\_\_
+- Nilai K yang diuji: **10, 20, 50** (utama); versi coverage@K: **1, 3, 5, 10, 20, 50**
 - Pembanding: pemilihan zona berdasarkan baseline.
 
 ### 10.4 Kriteria Pemilihan Model Akhir
 
 - Pemilihan memakai **data validation**; evaluasi test dijalankan **sekali** setelah model diumumkan.
-- Bobot pertimbangan (urutkan): ☐ Akurasi · ☐ Kompleksitas · ☐ Waktu · ☐ Interpretabilitas
-- Syarat dinyatakan lebih baik dari baseline: \_\_\_\_
+- Bobot pertimbangan (urutkan): ☑ Akurasi · ☑ Kompleksitas · ☑ Waktu · ☑ Interpretabilitas
+- Syarat dinyatakan lebih baik dari baseline: **Regresi/TS: MASE < 1 dan WAPE < baseline seasonal naive. Klasifikasi: macro-F1 > baseline `lag_168`.**
 
 ---
 
@@ -415,5 +415,5 @@ Catat **setiap** perubahan keputusan di sini, termasuk perubahan seed, periode, 
 
 | No. | Pertanyaan                                                                    | Pemilik  | Batas waktu | Jawaban |
 | :-: | :---------------------------------------------------------------------------- | :------- | :---------- | :------ |
-|  1  | Materi P12 (Time Series) belum terlihat; apakah langkah 6D perlu disesuaikan? | \_\_\_\_ | \_\_\_\_    |         |
+|  1  | Materi P12 (Time Series) belum terlihat; apakah langkah 6D perlu disesuaikan? | Aushaf | –           | Disesuaikan: periode musiman **24 jam** (lihat `08_time_series.ipynb`) |
 |  2  |                                                                               |          |             |         |
