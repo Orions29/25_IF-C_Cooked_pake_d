@@ -182,32 +182,32 @@ _Data final menunggu `demand_zone_hour` dari Anggota 2. Sambil menunggu, buat da
 
 _Prototipe boleh dimulai dengan satu bulan data; jalankan ulang pada `main_trips` final._
 
-- [ ] Menghitung jumlah perjalanan per bulan.
-- [ ] Grafik pickup per jam, per hari, dan per bulan.
-- [ ] Membandingkan hari kerja, akhir pekan, dan hari libur (kalender dari Anggota 4).
-- [ ] Menganalisis zona dengan pickup terbanyak dan konsentrasi Top-K.
-- [ ] Distribusi pickup per borough.
-- [ ] Distribusi jarak, durasi, dan tarif perjalanan.
-- [ ] Peta persebaran pickup berdasarkan centroid zona (simpan HTML di `out/html/`).
-- [ ] Pola asal-tujuan memakai koordinat pickup dan dropoff.
-- [ ] Analisis `cbd_congestion_fee` secara **deskriptif saja**, tidak untuk menyimpulkan dampak kausal.
-- [ ] Membandingkan distribusi sebelum dan sesudah cleaning.
-- [ ] Mengecek distribusi target: proporsi nol, kemiringan, _outlier_ (menentukan transformasi dan metrik di Fase 6).
-- [ ] Memeriksa ulang angka ringkasan dan uji statistik EDA UTS sebelum dipakai sebagai kesimpulan.
-- [ ] Mencatat temuan utama dan pertanyaan lanjutan dari tiap visual.
+- [X] Menghitung jumlah perjalanan per bulan.
+- [X] Grafik pickup per jam, per hari, dan per bulan.
+- [X] Membandingkan hari kerja, akhir pekan, dan hari libur (kalender dari Anggota 4).
+- [X] Menganalisis zona dengan pickup terbanyak dan konsentrasi Top-K.
+- [X] Distribusi pickup per borough.
+- [X] Distribusi jarak, durasi, dan tarif perjalanan.
+- [X] Peta persebaran pickup berdasarkan centroid zona (simpan HTML di `out/html/`).
+- [X] Pola asal-tujuan memakai koordinat pickup dan dropoff.
+- [X] Analisis `cbd_congestion_fee` secara **deskriptif saja**, tidak untuk menyimpulkan dampak kausal.
+- [X] Membandingkan distribusi sebelum dan sesudah cleaning.
+- [X] Mengecek distribusi target: proporsi nol, kemiringan, _outlier_ (menentukan transformasi dan metrik di Fase 6).
+- [X] Memeriksa ulang angka ringkasan dan uji statistik EDA UTS sebelum dipakai sebagai kesimpulan.
+- [X] Mencatat temuan utama dan pertanyaan lanjutan dari tiap visual.
 
 **Output:** `script/03_eda.ipynb`, grafik/peta/tabel di `out/output_eda/` dan `out/html/`, ringkasan temuan
 **Gate:** setiap visual punya penjelasan dan menjawab salah satu RQ.
 
 ### 4.9 Fase 4A - Agregasi `demand_zone_hour` _(prioritas, memblokir Anggota 1 dan 3)_
 
-- [ ] Membulatkan `tpep_pickup_datetime` ke interval satu jam (waktu lokal New York).
-- [ ] Mengelompokkan berdasarkan pasangan `PU_longitude`/`PU_latitude` dan jam.
-- [ ] Membuat **grid zona-jam lengkap**; kombinasi tanpa pickup pada jam valid diisi **nol**.
-- [ ] Menandai jam yang tidak ada karena DST (8 Maret 2026) sebagai **tidak tersedia**, bukan nol.
-- [ ] Menghubungkan hasil dengan nama zona, borough, dan geometri lewat tabel pemetaan.
-- [ ] Memverifikasi total pickup agregat = jumlah pickup valid pada `main_trips`.
-- [ ] Menyimpan `demand_zone_hour` di `datasets/interim/2026/`.
+- [X] Membulatkan `tpep_pickup_datetime` ke interval satu jam (waktu lokal New York).
+- [X] Mengelompokkan berdasarkan pasangan `PU_longitude`/`PU_latitude` dan jam.
+- [X] Membuat **grid zona-jam lengkap**; kombinasi tanpa pickup pada jam valid diisi **nol**.
+- [X] Menandai jam yang tidak ada karena DST (8 Maret 2026) sebagai **tidak tersedia**, bukan nol.
+- [X] Menghubungkan hasil dengan nama zona, borough, dan geometri lewat tabel pemetaan.
+- [X] Memverifikasi total pickup agregat = jumlah pickup valid pada `main_trips`.
+- [X] Menyimpan `demand_zone_hour` di `datasets/interim/2026/`.
 
 **Output:** `demand_zone_hour`; notebook `script/04a_aggregation.ipynb`
 **Gate:** total pickup agregat sama dengan sumber; grid waktu sudah diperiksa.
@@ -216,23 +216,23 @@ _Prototipe boleh dimulai dengan satu bulan data; jalankan ulang pada `main_trips
 
 > Tugas P11 (Regression) dibuka **5 November 2026**.
 
-- [ ] Melatih Linear Regression, Ridge, dan Lasso untuk `pickup_count` jam t+1.
-- [ ] Standardisasi fitur numerik (scaler dari training saja).
-- [ ] Bila distribusi sangat miring dan banyak nol, mencoba `log1p` pada target, tetapi **metrik dihitung pada skala asli**.
-- [ ] Mengevaluasi MAE, RMSE, R², WAPE, MASE (terhadap seasonal naive). **Hindari MAPE** sebagai metrik utama.
-- [ ] Memeriksa asumsi regresi: residual dan multikolinearitas fitur lag.
-- [ ] Membandingkan error train vs validation untuk mendeteksi _overfitting_/_underfitting_.
-- [ ] Melaporkan metrik terpisah untuk zona ramai dan zona sepi.
-- [ ] Menyajikan koefisien terpenting untuk interpretabilitas.
-- [ ] Opsional: Polynomial / LightGBM sebagai pembanding bila waktu memungkinkan.
-- [ ] Mencatat waktu training dan prediksi.
+- [X] Melatih Linear Regression, Ridge, dan Lasso untuk `pickup_count` jam t+1.
+- [X] Standardisasi fitur numerik (scaler dari training saja).
+- [X] Bila distribusi sangat miring dan banyak nol, mencoba `log1p` pada target, tetapi **metrik dihitung pada skala asli**.
+- [X] Mengevaluasi MAE, RMSE, R², WAPE, MASE (terhadap seasonal naive). **Hindari MAPE** sebagai metrik utama.
+- [X] Memeriksa asumsi regresi: residual dan multikolinearitas fitur lag.
+- [X] Membandingkan error train vs validation untuk mendeteksi _overfitting_/_underfitting_.
+- [X] Melaporkan metrik terpisah untuk zona ramai dan zona sepi.
+- [X] Menyajikan koefisien terpenting untuk interpretabilitas.
+- [X] Opsional: Polynomial / LightGBM sebagai pembanding bila waktu memungkinkan.
+- [X] Mencatat waktu training dan prediksi.
 
 **Output:** `script/06_regression.ipynb`, tabel metrik, grafik aktual vs prediksi, analisis kesalahan (`out/`)
 
 ### 4.11 Fase 7 - Tuning Regresi
 
-- [ ] Grid search `alpha` untuk Ridge/Lasso dengan `TimeSeriesSplit` (_expanding window_) pada data training.
-- [ ] Menyerahkan hasil tuning dan waktu komputasi ke Anggota 4.
+- [X] Grid search `alpha` untuk Ridge/Lasso dengan `TimeSeriesSplit` (_expanding window_) pada data training.
+- [X] Menyerahkan hasil tuning dan waktu komputasi ke Anggota 4.
 
 ---
 
