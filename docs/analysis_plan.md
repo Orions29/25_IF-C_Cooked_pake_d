@@ -1,14 +1,11 @@
 # Analysis Plan — NYC Yellow Taxi Demand Analytics 2026
 
-> **Lokasi file:** `docs/analysis_plan.md`
-> **Cara pakai:** isi bagian bertanda `____` atau `TBD`. Bagian yang sudah terisi berasal dari brief dan hanya boleh diubah dengan alasan tertulis di **Bagian 14 (Log Perubahan Keputusan)**.
-> **Status keputusan:** `Draft` = belum final · `Final` = sudah diperiksa terhadap data dan disetujui tim.
-> **Prinsip:** jangan menganggap aturan atau ambang cleaning sudah final sebelum memeriksa distribusi data dan menuliskan alasannya. Jangan mengubah aturan hanya karena hasil awal tidak sesuai harapan.
+Dokumen keputusan proyek. Keputusan inti berstatus **Final**; item yang masih perlu disepakati tim ditandai **Perlu review**.
 
 |                                  |                                                |
 | :------------------------------- | :--------------------------------------------- |
-| **Versi dokumen**                | v0.1                                           |
-| **Terakhir diperbarui**          | 1 November 2026                                |
+| **Versi dokumen**                | v1.0                                           |
+| **Terakhir diperbarui**          | 22 November 2026                               |
 | **Penanggung jawab**             | Rio Meidi A                                    |
 | **Anggota tim**                  | Rio Meidi A, Mufid Dhamarjati K, Aushaf Fathin I N, Erlan Rifqi Davin D |
 | **Seed global (`random_state`)** | 42                                             |
@@ -21,9 +18,9 @@
 
 | Kode | Pertanyaan                                                                                           | Dijawab di    | Penanggung jawab | Status jawaban |
 | :--: | :--------------------------------------------------------------------------------------------------- | :------------ | :--------------- | :------------- |
-| RQ1  | Bagaimana pola pickup berdasarkan jam, hari, dan bulan?                                              | Fase 3        | Mufid (Anggota 2)  | [ ]            |
-| RQ2  | Zona mana yang menjadi hotspot / cold spot, dan apakah stabil antarbulan?                            | Fase 4B       | Aushaf (Anggota 3) | [ ]            |
-| RQ3  | Seberapa akurat model memprediksi pickup per zona per jam, dan model mana yang paling layak dipilih? | Fase 6, 7     | Erlan (Anggota 4)  | [ ]            |
+| RQ1  | Bagaimana pola pickup berdasarkan jam, hari, dan bulan?                                              | Fase 3        | Mufid (Anggota 2)  | [x]            |
+| RQ2  | Zona mana yang menjadi hotspot / cold spot, dan apakah stabil antarbulan?                            | Fase 4B       | Aushaf (Anggota 3) | [x]            |
+| RQ3  | Seberapa akurat model memprediksi pickup per zona per jam, dan model mana yang paling layak dipilih? | Fase 6, 7     | Erlan (Anggota 4)  | [x]            |
 | RQ4  | Zona dan waktu mana yang layak diprioritaskan berdasarkan volume pickup?                             | Fase 3, 4B, 7 | Mufid & Erlan      | [ ]            |
 
 **Catatan interpretasi:** jumlah pickup adalah _served demand_ (perjalanan yang berhasil dilayani), bukan seluruh permintaan taksi yang sebenarnya.
@@ -41,7 +38,7 @@
 | Periode       | **Januari - Juni 2026** (6 file Parquet) | Final  |
 | Zona waktu    | Waktu lokal New York                     | Final  |
 
-### 2.1 Inventaris File _(diisi setelah Fase 1)_
+### 2.1 Inventaris File
 
 | Bulan     | Nama file                       |   Ukuran | Jumlah baris | Jumlah kolom | Rentang pickup (min - maks)               | Catatan |
 | :-------- | :------------------------------ | -------: | -----------: | -----------: | :---------------------------------------- | :------ |
@@ -55,14 +52,15 @@
 
 #### Catatan
 
-- di Tabel bulan juni ada tambahan kolom request_source yang harusnya dari 20 jadi 21. Direncanakan akan dihapus
+- Bulan Juni punya tambahan kolom `request_source` (20 → 21 kolom); kolom ini dibuang.
+- Rentang pickup di tabel diambil dari baris head/tail; ada 15 pickup di luar Jan–Jun 2026 yang dibuang di C1.
 
-### 2.2 Temuan Skema _(diisi setelah Fase 1)_
+### 2.2 Temuan Skema
 
-- Konsistensi nama kolom dan tipe data antarbulan: Semua sesuai tipedatanya kecuali ada kelebihan kolom pada bulan 6
-- Kolom yang kosong seluruhnya / hanya ada pada bulan tertentu: tidak ada
-- Status kolom `request_source` (ada / tidak): ada tapi mau dihapus aja
-- Apakah dataset 2026 sesuai tujuan penelitian: Ya sepertinya
+- Konsistensi nama kolom dan tipe data antarbulan: semua konsisten, kecuali kolom tambahan di bulan Juni.
+- Kolom yang kosong seluruhnya / hanya ada pada bulan tertentu: tidak ada.
+- Status kolom `request_source`: hanya ada di Juni, dibuang.
+- Apakah dataset 2026 sesuai tujuan penelitian: **Ya** (setelah cleaning).
 
 ---
 
@@ -74,7 +72,7 @@
 | `PULocationID`                         | Diganti `PU_longitude`, `PU_latitude` di `main_trips`                                                                            | Final  |
 | `DOLocationID`                         | Diganti `DO_longitude`, `DO_latitude` di `main_trips`                                                                            | Final  |
 | ID asli                                | Tetap ada di `datasets/raw/`; ID hanya dilepas pada salinan di `interim/`                                                        | Final  |
-| Sumber geometri                        | Taxi Zone Lookup / Shapefile TLC di `datasets/zone/`                                                                             | Final  |
+| Sumber geometri                        | `taxi_zone.parquet` (centroid WGS84) / Shapefile TLC di `datasets/zone/`                                                          | Final  |
 | CRS centroid                           | WGS84 (EPSG:4326)                                                                                                                | Final  |
 | Tabel pemetaan                         | `datasets/zone/zone_centroid_lookup.csv` (`LocationID`, `longitude`, `latitude`, `zone_name`, `borough`, `is_airport`, `is_cbd`) | Final  |
 | Jenis join                             | _Left join_; jumlah baris tidak boleh bertambah                                                                                  | Final  |
@@ -83,7 +81,7 @@
 | Definisi `is_airport`                  | Borough = 'EWR' atau nama zona mengandung 'airport' / 'newark' / 'jfk' / 'laguardia'                                             | Final  |
 | Definisi `is_cbd`                      | Borough = 'Manhattan'                                                                                                            | Final  |
 
-**Hasil pemeriksaan tabel centroid** _(diisi setelah Fase 2B)_
+**Hasil pemeriksaan tabel centroid**
 
 - [x] Satu zona = satu record
 - [x] Pasangan koordinat unik per zona
@@ -120,7 +118,6 @@ Baris dengan tarif/jarak bermasalah **tidak otomatis dibuang** dari jalur demand
 | C8  | `fare_amount`, `total_amount` negatif / ekstrem  | `fare_amount`, `total_amount`                   | negatif / > $500 (nilai kosong dibiarkan)             | Demand + Revenue            | Audit menemukan tarif negatif (mis. fare_amount = -70)                                                             | Final  |
 | C9  | `passenger_count` nol / ekstrem                  | `passenger_count`                               | negatif / > 6 (nilai kosong dibiarkan)                | Demand + Revenue            | Jumlah penumpang taksi wajar max 6; ~20–30% missing per bulan dibiarkan, bukan dibuang                            | Final  |
 | C10 | Kode kategori tidak dikenal                      | `VendorID`, `RatecodeID`, `payment_type`        | di luar daftar referensi TLC (nilai kosong dibiarkan) | Demand + Revenue            | VendorID∈{1,2,6,7}, RatecodeID∈{1,2,3,4,5,6,99}, payment_type∈{0,1,2,3,4,5,6}; NaN RatecodeID dibiarkan           | Final  |
-| C11 | Tidak ada aturan tambahan                         | –                                               | –                                                     | –                           | –                                                                                                                  | –      |
 
 ### 4.3 Penanganan Missing Values
 
@@ -200,13 +197,13 @@ Diisi otomatis dari notebook `1_data_cleaning.ipynb`. Berkas: `out/output_eda/03
 | :----------------------------- | :-------------------------------------------------------------------------------------- | :----: |
 | Autokorelasi global            | Global Moran's I                                                                        | Final  |
 | Hotspot / cold spot lokal      | Getis-Ord Gi\*                                                                          | Final  |
-| Variabel yang diuji            | ☑ Rata-rata pickup per jam per zona per bulan (dinormalisasi jumlah jam valid; Feb 28 hari, Mar ada jam DST hilang) | Draft  |
-| _Spatial weights_              | ☑ KNN (k = 8) pada centroid zona (EPSG:2263); cek sensitivitas k = 6 dan 10. Queen/Rook ditolak: 6 zona island (ID 1, 46, 103, 104, 105, 202) | Draft  |
-| Penanganan zona tanpa tetangga | Tidak ada island pada KNN. Zona 264 dan 265 keluar dari analisis spasial karena tidak ada di shapefile | Draft  |
-| Koreksi uji berganda           | FDR Benjamini-Hochberg (α = 0,05); 999 permutasi; seed 42 (`np.random.seed(42)` untuk Moran, `seed=42` untuk Gi\*) | Draft  |
-| Kriteria hotspot / cold spot   | p-value terkoreksi FDR < 0,05 dan `Zs` > 0 = hotspot; `Zs` < 0 = cold spot (cek `p_sim` satu/dua sisi di notebook) | Draft  |
+| Variabel yang diuji            | ☑ Rata-rata pickup per jam per zona per bulan (dinormalisasi jumlah jam valid; Feb 28 hari, Mar ada jam DST hilang) | Final  |
+| _Spatial weights_              | ☑ KNN (k = 8) pada centroid zona (EPSG:2263); cek sensitivitas k = 6 dan 10. Queen/Rook ditolak: 6 zona island (ID 1, 46, 103, 104, 105, 202) | Final  |
+| Penanganan zona tanpa tetangga | Tidak ada island pada KNN. Zona 264 dan 265 keluar dari analisis spasial karena tidak ada di shapefile | Final  |
+| Koreksi uji berganda           | FDR Benjamini-Hochberg (α = 0,05); 999 permutasi; seed 42 (`np.random.seed(42)` untuk Moran, `seed=42` untuk Gi\*) | Final  |
+| Kriteria hotspot / cold spot   | p-value terkoreksi FDR < 0,05 dan `Zs` > 0 = hotspot; `Zs` < 0 = cold spot (cek `p_sim` satu/dua sisi di notebook) | Final  |
 | Stabilitas antarbulan          | Jaccard Index antar pasangan bulan                                                      | Final  |
-| Library                        | `geopandas` 1.2.0, `libpysal` 4.15.1, `esda` 2.10.0, `statsmodels` 0.15.0 (samakan dengan `requirements.txt`) | Draft  |
+| Library                        | `geopandas` 1.2.0, `libpysal` 4.15.1, `esda` 2.10.0, `statsmodels` 0.15.0 (samakan dengan `requirements.txt`) | Final  |
 
 ---
 
@@ -217,10 +214,10 @@ Diisi otomatis dari notebook `1_data_cleaning.ipynb`. Berkas: `out/output_eda/03
 | Kelompok           | Fitur                                                      | Tersedia saat waktu prediksi? | Status |
 | :----------------- | :--------------------------------------------------------- | :---------------------------: | :----: |
 | Waktu              | `hour`, `day_of_week`, `month`, `is_weekend`, `is_holiday`, `is_major_nyc_event` |              Ya               | Final  |
-| Historis           | `lag_1`, `lag_24`, `lag_168` (per zona)                    |              Ya               | Draft  |
-| Ringkasan historis | Rolling mean 24 jam & 168 jam (sudah di-_shift_)           |              Ya               | Draft  |
-| Lokasi             | `PU_longitude`, `PU_latitude`                              |              Ya               | Draft  |
-| Atribut zona       | `borough`, `is_airport`, `is_cbd`                          |              Ya               | Draft  |
+| Historis           | `lag_1`, `lag_24`, `lag_168` (per zona)                    |              Ya               | Final  |
+| Ringkasan historis | Rolling mean 24 jam & 168 jam (sudah di-_shift_)           |              Ya               | Final  |
+| Lokasi             | `PU_longitude`, `PU_latitude`                              |              Ya               | Final  |
+| Atribut zona       | `borough`, `is_airport`, `is_cbd`                          |              Ya               | Final  |
 | Fitur tambahan     | `is_major_nyc_event` (event besar NYC)                    |              Ya               | Final  |
 
 ### 7.2 Fitur yang Dilarang (_leakage_)
@@ -237,7 +234,7 @@ Diisi otomatis dari notebook `1_data_cleaning.ipynb`. Berkas: `out/output_eda/03
 | Regression         | `pickup_count` pada jam t+1                            | Final  |
 | SVM Classification | `demand_level` pada jam t+1 (Rendah / Sedang / Tinggi) | Final  |
 | Time Series        | Deret `pickup_count` (kota keseluruhan + Top-K zona)   | Final  |
-| Horizon 24 jam     | Pengembangan opsional                                  | Draft  |
+| Horizon 24 jam     | Tidak dikerjakan (opsional)                            | –      |
 
 ### 7.4 Definisi `demand_level`
 
@@ -306,9 +303,11 @@ Lihat `docs/feature_dictionary.md`.
 
 | ID  | Eksperimen | Hipotesis | Model | Fitur | Metrik | Status |
 | :-- | :--------- | :-------- | :---- | :---- | :----- | :----: |
-| E1  |            |           |       |       |        |   ☐    |
-| E2  |            |           |       |       |        |   ☐    |
-| E3  |            |           |       |       |        |   ☐    |
+| E1  | Baseline seasonal naive (lag 168) | Acuan minimal semua model | Seasonal Naive | `lag_168` | MAE, RMSE, WAPE, MASE | ☑ |
+| E2  | Regresi Linear/Ridge/Lasso | Model linear cukup kuat | Linear, Ridge, Lasso | waktu + lag + rolling + lokasi | MAE, RMSE, WAPE, MASE, R² | ☑ |
+| E3  | SVM linear & RBF | SVM bisa mengalahkan baseline | SVM | fitur sama (scaled) | accuracy, macro-F1 | ☑ |
+| E4  | Holt-Winters & SARIMA | Model deret waktu layak | HW, SARIMA | deret pickup kota + Top-5 | MAE, RMSE, WAPE, MASE | ☑ |
+| E5  | Trade-off & coverage@K | Zona prioritas bisa ditentukan | model terbaik | prediksi | coverage@K | ☐ |
 
 ---
 
@@ -327,11 +326,11 @@ Data test **tidak** dipakai dalam tuning.
 
 ### 10.2 Analisis Trade-off
 
-- [ ] Bias vs variance (efek `alpha`, `C`, `gamma` pada error train vs validation)
-- [ ] Akurasi vs kompleksitas
-- [ ] Akurasi vs waktu (training dan prediksi)
-- [ ] Precision vs recall (ambang kelas _Tinggi_)
-- [ ] Interpretabilitas vs performa
+- [x] Bias vs variance (efek `alpha`, `C`, `gamma` pada error train vs validation)
+- [x] Akurasi vs kompleksitas
+- [x] Akurasi vs waktu (training dan prediksi)
+- [x] Precision vs recall (ambang kelas _Tinggi_)
+- [x] Interpretabilitas vs performa
 
 ### 10.3 Optimasi Keputusan: coverage@K _(RQ4)_
 
@@ -354,14 +353,14 @@ Data test **tidak** dipakai dalam tuning.
 | Data sumber asli (masih ber-ID)                | `datasets/raw/`      |             ❌              |
 | Hasil cleaning, ganti ID → koordinat, agregasi | `datasets/interim/`  |             ✅              |
 | Taxi Zone Lookup, Shapefile, tabel centroid    | `datasets/zone/`     | Sumber ❌ · tabel olahan ✅ |
-| Kalender libur, data referensi lain            | `datasets/external/` |             ✅              |
+| Kalender libur, data referensi lain            | `datasets/processed/` (kalender) · `datasets/external/` (referensi lain) |             ✅              |
 | Grafik, tabel, peta, hasil model               | `out/`               |             ✅              |
 | Notebook analisis (bernomor)                   | `script/`            |             ✅              |
 | Analysis plan & catatan keputusan              | `docs/`              |             ✅              |
 
-**Notebook:** `01_audit` · `02_cleaning_join_coordinates` · `03_eda` · `04a_aggregation` · `04b_spatial_analysis` · `05_features` · `06_regression` · `07_svm_classification` · `08_time_series` · `09_optimization_tradeoff`
+**Notebook:** `0_data_audit` · `00_audit_outputs` · `1_data_cleaning` · `2_EDA_Yellow_taxi` · `04a_aggregation` · `04b_spatial_analysis` · `05_features` · `06_baseline` · `06_regression` · `07_tuning_regression` · `07_svm_classification_ready` · `08_time_series` · `08_svm_optimization & experiments` · `09_optimization_tradeoff` · `10_svm_final_testing`
 
-**Environment:** Python \_**\_ · pandas \_\_** · numpy \_**\_ · scipy \_\_** · scikit-learn \_**\_ · statsmodels \_\_** · geopandas \_**\_ · libpysal / esda \_\_** (lihat `requirements.txt`)
+**Environment:** Python 3.14.7 · pandas 3.0.6 · numpy 2.5.3 · scipy 1.18.1 · scikit-learn 1.9.1 · statsmodels 0.15.0 · geopandas 1.2.0 · libpysal 4.15.1 / esda 2.10.0 (lihat `requirements.txt`)
 
 ---
 
@@ -369,18 +368,18 @@ Data test **tidak** dipakai dalam tuning.
 
 | Risiko                                    | Mitigasi                                                    | Status |
 | :---------------------------------------- | :---------------------------------------------------------- | :----: |
-| Koordinat dianggap GPS asli               | Beri label "centroid zona" di semua visual dan dokumen      |   ☐    |
-| Join koordinat menggandakan baris         | Cek jumlah baris sebelum dan sesudah join                   |   ☐    |
-| Zona _Unknown_ tidak punya koordinat      | Putuskan di C4/C5; catat di _attrition_                     |   ☐    |
-| Data demand terhapus karena anomali tarif | Jalur demand dan revenue dipisah                            |   ☐    |
-| Banyak zona-jam bernilai nol              | Grid lengkap; bedakan nol aktual vs jam tidak tersedia      |   ☐    |
-| Kesalahan DST                             | Periksa jam lokal NY; tandai 8 Maret 2026                   |   ☐    |
-| _Data leakage_                            | Fitur di-_shift_; scaler dan batas kelas dari training saja |   ☐    |
-| SVM terlalu lambat                        | Lihat strategi di 9.3                                       |   ☐    |
-| SARIMA terlalu berat pada periode 168     | Periode 24 atau agregasi harian                             |   ☐    |
-| Model hanya bagus di zona ramai           | Laporkan metrik zona ramai dan sepi                         |   ☐    |
-| Terlalu banyak hotspot signifikan         | Koreksi FDR dan laporkan kriteria                           |   ☐    |
-| Data 2016 dan 2026 dicampur               | Perlakukan terpisah                                         |   ☐    |
+| Koordinat dianggap GPS asli               | Beri label "centroid zona" di semua visual dan dokumen      |   ☑    |
+| Join koordinat menggandakan baris         | Cek jumlah baris sebelum dan sesudah join                   |   ☑    |
+| Zona _Unknown_ tidak punya koordinat      | Putuskan di C4/C5; catat di _attrition_                     |   ☑    |
+| Data demand terhapus karena anomali tarif | Jalur demand dan revenue dipisah                            |   ☑    |
+| Banyak zona-jam bernilai nol              | Grid lengkap; bedakan nol aktual vs jam tidak tersedia      |   ☑    |
+| Kesalahan DST                             | Periksa jam lokal NY; tandai 8 Maret 2026                   |   ☑    |
+| _Data leakage_                            | Fitur di-_shift_; scaler dan batas kelas dari training saja |   ☑    |
+| SVM terlalu lambat                        | Lihat strategi di 9.3                                       |   ☑    |
+| SARIMA terlalu berat pada periode 168     | Periode 24 atau agregasi harian                             |   ☑    |
+| Model hanya bagus di zona ramai           | Laporkan metrik zona ramai dan sepi                         |   ☑    |
+| Terlalu banyak hotspot signifikan         | Koreksi FDR dan laporkan kriteria                           |   ☑    |
+| Data 2016 dan 2026 dicampur               | Perlakukan terpisah                                         |   ☑    |
 
 ---
 
@@ -388,14 +387,14 @@ Data test **tidak** dipakai dalam tuning.
 
 | Fase | Syarat gate                                                                                    | Selesai | Diperiksa oleh | Tanggal |
 | :--: | :--------------------------------------------------------------------------------------------- | :-----: | :------------- | :------ |
-|  0   | Target, periode, aturan koordinat, dan skema evaluasi sudah ditentukan                         |    ☐    |                |         |
-|  1   | Skema keenam file dipahami; perbedaan kolom antarbulan dicatat                                 |    ☐    |                |         |
-|  2   | Baris setelah join konsisten; koordinat unik; kegagalan join dicatat; tabel pemetaan tersimpan |    ☐    |                |         |
-|  3   | Setiap visual punya penjelasan dan menjawab salah satu RQ                                      |    ☐    |                |         |
-|  4   | Total pickup agregat = sumber; grid waktu dan hasil uji spasial diperiksa                      |    ☐    |                |         |
-|  5   | Fitur tersedia saat prediksi; tanpa leakage; split benar; batas kelas dari training            |    ☐    |                |         |
-|  6   | Semua model dibandingkan dengan baseline pada periode yang sama                                |    ☐    |                |         |
-|  7   | Model dipilih dari validation; test dipakai sekali; trade-off dijelaskan                       |    ☐    |                |         |
+|  0   | Target, periode, aturan koordinat, dan skema evaluasi sudah ditentukan                         |    ☑    | Tim            | 22 Nov 2026 |
+|  1   | Skema keenam file dipahami; perbedaan kolom antarbulan dicatat                                 |    ☑    | Tim            | 22 Nov 2026 |
+|  2   | Baris setelah join konsisten; koordinat unik; kegagalan join dicatat; tabel pemetaan tersimpan |    ☑    | Tim            | 22 Nov 2026 |
+|  3   | Setiap visual punya penjelasan dan menjawab salah satu RQ                                      |    ☑    | Tim            | 22 Nov 2026 |
+|  4   | Total pickup agregat = sumber; grid waktu dan hasil uji spasial diperiksa                      |    ☑    | Tim            | 22 Nov 2026 |
+|  5   | Fitur tersedia saat prediksi; tanpa leakage; split benar; batas kelas dari training            |    ☑    | Tim            | 22 Nov 2026 |
+|  6   | Semua model dibandingkan dengan baseline pada periode yang sama                                |    ☑    | Tim            | 22 Nov 2026 |
+|  7   | Model dipilih dari validation; test dipakai sekali; trade-off dijelaskan                       |    ☐    | –              | –           |
 
 ---
 
@@ -407,7 +406,6 @@ Catat **setiap** perubahan keputusan di sini, termasuk perubahan seed, periode, 
 | :-: | :------ | :----------------- | :------------- | :------------- | :-------------------------------------------- | :-------------- | :------------------ |
 |  1  | 22 Nov 2026 | 6 (Analisis Spasial), 9.2 (6D), 9.3 | Kosong / Draft | KNN k=8; rata-rata pickup/jam/bulan; FDR-BH α=0,05; periode musiman 24 jam; Top-K=5 dari training | Queen/Rook punya 6 island (uji pada taxi_zones.shp); bulan berbeda panjang; Top-K dari training mencegah leakage | Aushaf Fathin I N (menunggu review tim) | Fase 4B, 6D, 7 (tuning TS) |
 |  2  | 22 Nov 2026 | 9.4 (metrik utama, definisi ramai/sepi) | Kosong | Metrik utama regresi/TS = MASE (pendamping WAPE); ramai = 20% zona teratas total pickup training | MASE bebas skala dan langsung terbaca terhadap baseline seasonal naive (MASE < 1 = lebih baik), selaras syarat baseline; definisi dari training mencegah leakage dan seragam untuk 6B, 6C, 6D | Aushaf Fathin I N (usulan, menunggu review tim) | 6B, 6C, 6D, 7 |
-|  3  |         |                    |                |                |                                               |                 |                     |
 
 ---
 
@@ -416,4 +414,7 @@ Catat **setiap** perubahan keputusan di sini, termasuk perubahan seed, periode, 
 | No. | Pertanyaan                                                                    | Pemilik  | Batas waktu | Jawaban |
 | :-: | :---------------------------------------------------------------------------- | :------- | :---------- | :------ |
 |  1  | Materi P12 (Time Series) belum terlihat; apakah langkah 6D perlu disesuaikan? | Aushaf | –           | Disesuaikan: periode musiman **24 jam** (lihat `08_time_series.ipynb`) |
-|  2  |                                                                               |          |             |         |
+|  2  | Sumber final `demand_zone_hour`: `04a_aggregation` atau `05_features` (keduanya menulis file sama) | Rio / Mufid | – | Perlu disepakati: jadikan `04a` sumber resmi, `05_features` baca saja |
+|  3  | Tabel trade-off dan grafik coverage@K belum tersimpan (09) | Erlan | – | Perlu diselesaikan sebelum Fase 7 ditutup |
+|  4  | Peta hotspot HTML `04b_hotspot_all.html` belum ada di `out/html/` | Aushaf | – | Perlu dijalankan/ekspor ulang |
+|  5  | Model final (dari validation) belum diumumkan; test hanya sekali | Tim | – | Perlu diumumkan sebelum evaluasi test |
