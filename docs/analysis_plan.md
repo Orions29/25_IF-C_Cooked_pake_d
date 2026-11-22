@@ -79,9 +79,9 @@
 | Tabel pemetaan                         | `datasets/zone/zone_centroid_lookup.csv` (`LocationID`, `longitude`, `latitude`, `zone_name`, `borough`, `is_airport`, `is_cbd`) | Final  |
 | Jenis join                             | _Left join_; jumlah baris tidak boleh bertambah                                                                                  | Final  |
 | Atribut zona turunan                   | `borough`, `zone_name`, `is_airport`, `is_cbd` (diturunkan **sebelum** ID dilepas)                                               | Final  |
-| Perlakuan zona _Unknown_ (ID 264, 265) | ☐ Dibuang · ☐ Dilabeli khusus — alasan: \_\_\_\_                                                                                 | Draft  |
-| Definisi `is_airport`                  | \_\_\_\_ (zona mana saja, mis. JFK, LGA)                                                                                         | Draft  |
-| Definisi `is_cbd`                      | \_\_\_\_ (zona mana saja)                                                                                                        | Draft  |
+| Perlakuan zona _Unknown_ (ID 264, 265) | ☑ Dibuang · ☐ Dilabeli khusus — alasan: zona tidak punya geometri/koordinat, tidak bisa direpresentasikan sebagai titik pickup | Final  |
+| Definisi `is_airport`                  | Borough = 'EWR' atau nama zona mengandung 'airport' / 'newark' / 'jfk' / 'laguardia'                                             | Final  |
+| Definisi `is_cbd`                      | Borough = 'Manhattan'                                                                                                            | Final  |
 
 **Hasil pemeriksaan tabel centroid** _(diisi setelah Fase 2B)_
 
@@ -108,44 +108,49 @@ Baris dengan tarif/jarak bermasalah **tidak otomatis dibuang** dari jalur demand
 
 ### 4.2 Daftar Aturan
 
-| ID  | Aturan                                           | Kolom                                           | Batas / kriteria | Jalur                       | Alasan & bukti distribusi | Status |
-| :-- | :----------------------------------------------- | :---------------------------------------------- | :--------------- | :-------------------------- | :------------------------ | :----: |
-| C1  | Pickup di luar rentang Jan-Jun 2026              | `tpep_pickup_datetime`                          | \_\_\_\_         | Demand + Revenue            |                           | Draft  |
-| C2  | Timestamp kosong / tidak valid                   | `tpep_pickup_datetime`, `tpep_dropoff_datetime` | \_\_\_\_         | Demand + Revenue            |                           | Draft  |
-| C3  | Dropoff sebelum pickup / durasi tidak wajar      | durasi = dropoff − pickup                       | \_\_\_\_         | Revenue (Demand?: \_\_\_\_) |                           | Draft  |
-| C4  | Zona pickup kosong / di luar daftar / _Unknown_  | `PULocationID`                                  | \_\_\_\_         | Demand + Revenue            |                           | Draft  |
-| C5  | Zona dropoff kosong / di luar daftar / _Unknown_ | `DOLocationID`                                  | \_\_\_\_         | Revenue (Demand?: \_\_\_\_) |                           | Draft  |
-| C6  | Duplikat seluruh baris                           | seluruh kolom                                   | \_\_\_\_         | Demand + Revenue            |                           | Draft  |
-| C7  | `trip_distance` nol / negatif / ekstrem          | `trip_distance`                                 | \_\_\_\_         | Revenue                     |                           | Draft  |
-| C8  | `fare_amount`, `total_amount` negatif / ekstrem  | `fare_amount`, `total_amount`                   | \_\_\_\_         | Revenue                     |                           | Draft  |
-| C9  | `passenger_count` nol / ekstrem                  | `passenger_count`                               | \_\_\_\_         | Revenue                     |                           | Draft  |
-| C10 | Kode kategori tidak dikenal                      | `VendorID`, `RatecodeID`, `payment_type`        | \_\_\_\_         | \_\_\_\_                    |                           | Draft  |
-| C11 | \_\_\_\_                                         | \_\_\_\_                                        | \_\_\_\_         | \_\_\_\_                    |                           | Draft  |
+| ID  | Aturan                                           | Kolom                                           | Batas / kriteria                                      | Jalur                       | Alasan & bukti distribusi                                                                                          | Status |
+| :-- | :----------------------------------------------- | :---------------------------------------------- | :---------------------------------------------------- | :-------------------------- | :----------------------------------------------------------------------------------------------------------------- | :----: |
+| C1  | Pickup di luar rentang Jan-Jun 2026              | `tpep_pickup_datetime`                          | < 2026-01-01 atau > 2026-06-30 23:59:59               | Demand + Revenue            | Audit menemukan pickup tahun 2001/2008 dan bulan di luar Jan-Jun 2026                                              | Final  |
+| C2  | Timestamp kosong / tidak valid                   | `tpep_pickup_datetime`, `tpep_dropoff_datetime` | salah satu kolom kosong                               | Demand + Revenue            | Kolom waktu wajib untuk demand dan agregasi zona-jam                                                               | Final  |
+| C3  | Dropoff sebelum pickup / durasi tidak wajar      | durasi = dropoff − pickup                       | <= 0 menit atau > 1440 menit (24 jam)                 | Demand + Revenue            | Tidak masuk akal secara fisik; tidak ada yang signifikan                                                         | Final  |
+| C4  | Zona pickup kosong / di luar daftar / _Unknown_  | `PULocationID`                                  | kosong / di luar 1–263 / Unknown (264, 265)           | Demand + Revenue            | Lokasi pickup wajib untuk analisis demand dan join koordinat                                                     | Final  |
+| C5  | Zona dropoff kosong / di luar daftar / _Unknown_ | `DOLocationID`                                  | kosong / di luar 1–263 / Unknown (264, 265)           | Demand + Revenue            | Koordinat dropoff perlu valid di `main_trips` tunggal                                                              | Final  |
+| C6  | Duplikat seluruh baris                           | seluruh kolom                                   | baris identik                                         | Demand + Revenue            | Menghindari perhitungan ganda perjalanan yang sama                                                                 | Final  |
+| C7  | `trip_distance` nol / negatif / ekstrem          | `trip_distance`                                 | negatif / > 100 mil (nilai kosong dibiarkan)          | Demand + Revenue            | Jarak > 100 mil atau negatif tidak wajar untuk taksi NYC                                                           | Final  |
+| C8  | `fare_amount`, `total_amount` negatif / ekstrem  | `fare_amount`, `total_amount`                   | negatif / > $500 (nilai kosong dibiarkan)             | Demand + Revenue            | Audit menemukan tarif negatif (mis. fare_amount = -70)                                                             | Final  |
+| C9  | `passenger_count` nol / ekstrem                  | `passenger_count`                               | negatif / > 6 (nilai kosong dibiarkan)                | Demand + Revenue            | Jumlah penumpang taksi wajar max 6; ~20–30% missing per bulan dibiarkan, bukan dibuang                            | Final  |
+| C10 | Kode kategori tidak dikenal                      | `VendorID`, `RatecodeID`, `payment_type`        | di luar daftar referensi TLC (nilai kosong dibiarkan) | Demand + Revenue            | VendorID∈{1,2,6,7}, RatecodeID∈{1,2,3,4,5,6,99}, payment_type∈{0,1,2,3,4,5,6}; NaN RatecodeID dibiarkan           | Final  |
+| C11 | \_\_\_\_                                         | \_\_\_\_                                        | \_\_\_\_                                              | \_\_\_\_                    |                                                                                                                    | Draft  |
 
 ### 4.3 Penanganan Missing Values
 
 | Kolom | % kosong | Fungsi kolom | Strategi (buang baris / isi / biarkan / buang kolom) | Alasan |
 | :---- | -------: | :----------- | :--------------------------------------------------- | :----- |
-|       |          |              |                                                      |        |
+| `passenger_count` | ~20–30 | atribut penumpang (revenue) | Biarkan di `main_trips` (tidak dibuang hanya karena ini) | Kolom pendukung, tidak wajib untuk jalur demand |
+| `RatecodeID` | ~20–30 | kode tarif (revenue) | Biarkan | Kolom pendukung revenue |
+| `store_and_fwd_flag` | ~20–30 | flag penyimpanan | Biarkan | Tidak mempengaruhi demand |
+| `congestion_surcharge` | ~20–30 | biaya kemacetan (revenue) | Biarkan | Kolom pendukung revenue |
+| `Airport_fee` | ~20–30 | biaya bandara (revenue) | Biarkan | Kolom pendukung revenue |
+| `request_source` (hanya Bulan 6) | 73,6% | sumber permintaan | Buang kolom pada Bulan 6 | Hanya ada di Bulan 6, sebagian besar kosong |
 
-Tidak ada baris yang dihapus hanya karena satu kolom pendukung kosong.
+Tidak ada baris yang dihapus hanya karena satu kolom pendukung kosong. Baris dihapus hanya jika melanggar aturan C1-C10 (nilai kosong pada kolom pendukung tidak dihitung pelanggaran).
 
 ### 4.4 Duplikat
 
-- Definisi duplikat: \_\_\_\_
-- Hasil pemeriksaan (catatan berulang vs perjalanan berbeda): \_\_\_\_
-- Aturan penghapusan: \_\_\_\_
+- Definisi duplikat: seluruh baris identik di semua kolom.
+- Hasil pemeriksaan: dihapus via `drop_duplicates()` (catatan berulang diperlakukan sebagai duplikat, bukan perjalanan berbeda, karena semua atribut termasuk waktu lokasi identik).
+- Aturan penghapusan: satu baris tetap, duplikat buang; dicatat di `03_cleaning_log.csv` (C6).
 
 ### 4.5 Kolom Wajib untuk Analisis
 
 | Jalur   | Kolom wajib |
 | :------ | :---------- |
-| Demand  | \_\_\_\_    |
-| Revenue | \_\_\_\_    |
+| Demand  | `tpep_pickup_datetime`, `PULocationID` (lalu diganti `PU_longitude`/`PU_latitude`) |
+| Revenue | `tpep_pickup_datetime`, `PULocationID`, `DOLocationID`, `trip_distance`, `fare_amount`, `total_amount`, `passenger_count` |
 
 ### 4.6 Log Cleaning (_attrition_)
 
-Diisi otomatis dari notebook `02_cleaning_join_coordinates.ipynb`. Berkas: `out/output_eda/03_cleaning_log.csv`.
+Diisi otomatis dari notebook `1_data_cleaning.ipynb`. Berkas: `out/output_eda/03_cleaning_log.csv`.
 
 | Aturan    | Baris sebelum | Baris dibuang | Baris sesudah | % dibuang | Konsentrasi pada tanggal/periode tertentu? |
 | :-------- | ------------: | ------------: | ------------: | --------: | :----------------------------------------- |
