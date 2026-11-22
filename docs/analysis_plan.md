@@ -10,7 +10,7 @@
 | **Versi dokumen**                | v0.1                                           |
 | **Terakhir diperbarui**          | 1 November 2026                                |
 | **Penanggung jawab**             | Rio Meidi A                                    |
-| **Anggota tim**                  | Rio Meidi A, Anggota 2 , Anggota 3 , Anggota 4 |
+| **Anggota tim**                  | Rio Meidi A, Anggota 2 , Aushaf Fathin I N , Anggota 4 |
 | **Seed global (`random_state`)** | 42                                             |
 
 ---
