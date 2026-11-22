@@ -21,13 +21,13 @@ Kamus fitur lengkap: `docs/feature_dictionary.md`.
 | Jam (Jan–Jun 2026) | 4.344 |
 | Zona-jam berisi pickup | 685.384 (60,0%) |
 | Zona-jam bernilai nol | 40,0% |
-| Dataset fitur (`features_dataset`) | 1.053.841 baris, 14 fitur |
+| Dataset fitur (`features_dataset`) | 1.053.841 baris, 15 fitur |
 
 Total pickup di grid = total pickup di `main_trips` = **22.274.550** (cocok).
 
 ## 3. Fitur
 
-- **Waktu:** `hour_of_day`, `day_of_week`, `month`, `is_weekend`, `is_holiday`
+- **Waktu:** `hour_of_day`, `day_of_week`, `month`, `is_weekend`, `is_holiday`, `is_major_nyc_event`
 - **Lokasi:** `PU_longitude`, `PU_latitude`, `is_airport`, `is_cbd`, `PU_borough`
 - **Historis (di-shift):** `lag_1`, `lag_24`, `lag_168`
 - **Rolling (di-shift):** `roll_24`, `roll_168`
@@ -74,7 +74,7 @@ Top-5 zona berdasarkan total pickup:
 | File | Isi |
 |:--|:--|
 | `datasets/interim/2026/demand_zone_hour.parquet` | grid zona-jam (1.142.472 × 10) |
-| `datasets/interim/2026/features_dataset.parquet` | dataset fitur + target + split (1.053.841 × 21) |
+| `datasets/interim/2026/features_dataset.parquet` | dataset fitur + target + split (1.053.841 × 22) |
 | `datasets/interim/2026/timeseries_city.parquet` | deret pickup kota per jam |
 | `datasets/interim/2026/timeseries_top5.parquet` | deret pickup Top-5 zona |
 | `docs/feature_dictionary.md` | kamus fitur |
@@ -82,5 +82,5 @@ Top-5 zona berdasarkan total pickup:
 ## 9. Catatan
 
 - Jam DST 8 Maret 2026 02:00 ditandai tidak tersedia, bukan nol.
-- `is_holiday` sementara dibangun dari tabel brief 3.7; bisa diganti kalau Anggota 4 kasih file kalender.
+- `is_holiday` (libur federal) dan `is_major_nyc_event` diambil dari `datasets/processed/nyc_holiday_event_calendar_2026.csv` (kalender resmi Anggota 4).
 - `PU_borough` masih teks, perlu di-encode saat modeling.
