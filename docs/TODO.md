@@ -174,7 +174,7 @@ _Data final menunggu `demand_zone_hour` dari Anggota 2. Sambil menunggu, buat da
 
 ---
 
-## 👤 Mufid Dhamarjati K- [Nama] · EDA, Agregasi & Regresi
+## 👤 Anggota 2 - Mufid Dhamarjati K · EDA, Agregasi & Regresi
 
 **Fase:** 3, 4A, 6B
 
@@ -236,7 +236,7 @@ _Prototipe boleh dimulai dengan satu bulan data; jalankan ulang pada `main_trips
 
 ---
 
-## 👤 Anggota 3 - [Aushaf Fathin Irsyad Nabil] · Analisis Spasial & Time Series
+## 👤 Anggota 3 - Aushaf Fathin Irsyad Nabil · Analisis Spasial & Time Series
 
 **Fase:** 4B, 6D
 
@@ -279,7 +279,7 @@ _Persiapan (spatial weights, library) bisa dimulai begitu `zone_centroid_lookup.
 
 ---
 
-## 👤 Anggota 4 - [Nama] · Infrastruktur, SVM & Optimasi
+## 👤 Anggota 4 - Erlan Rifqi Davin D · Infrastruktur, SVM & Optimasi
 
 **Fase:** Persiapan env & kalender (paralel dengan Fase 0–2), 6C, 7
 
