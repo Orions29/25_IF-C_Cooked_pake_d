@@ -1,0 +1,32 @@
+# NYC Yellow Taxi Demand Analytics 2026
+# Python 3.14.7 (conda env: ds)
+# Versi di-pin sesuai environment yang dipakai untuk menjalankan notebook.
+
+# --- Data dasar ---
+pandas==3.0.6
+numpy==2.5.3
+scipy==1.18.1
+pyarrow==26.0.0
+
+# --- Visualisasi ---
+matplotlib==3.11.2
+seaborn==0.13.2
+
+# --- Modeling ---
+scikit-learn==1.9.1
+
+# --- Time series ---
+statsmodels==0.15.0
+
+# --- Analisis spasial ---
+geopandas==1.2.0
+shapely==2.2.0
+pyproj==3.8.0
+libpysal==4.15.1
+esda==2.10.0
+folium==0.20.0
+# mapclassify  # opsional: hanya perlu kalau geopandas.explore pakai skema klasifikasi
+
+# --- Notebook ---
+notebook==7.6.3
+jupyterlab==4.6.4
